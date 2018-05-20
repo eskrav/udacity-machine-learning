@@ -18,6 +18,6 @@ Machine Learning Capstone | Capstone Project |
 
 ## License
 
-These projects were submitted by Ekaterina Kravtchenko as part of the Machine Learning Engineer at Udacity.
+These projects were submitted by Ekaterina Kravtchenko as part of the Machine Learning Engineer Nanodegree at Udacity.
 
 As part of Udacity Honor code, your submissions must be your own work. If you submit these projects as yours, you will break the [Udacity Honor Code](https://udacity.zendesk.com/hc/en-us/articles/210667103-What-is-the-Udacity-Honor-Code-), and your account will be suspended.
