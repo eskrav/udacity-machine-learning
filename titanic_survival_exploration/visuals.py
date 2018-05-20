@@ -1,269 +1,156 @@
-<!DOCTYPE HTML>
-<html>
+###########################################
+# Suppress matplotlib user warnings
+# Necessary for newer version of matplotlib
+import warnings
+warnings.filterwarnings("ignore", category = UserWarning, module = "matplotlib")
+#
+# Display inline matplotlib plots with IPython
+from IPython import get_ipython
+get_ipython().run_line_magic('matplotlib', 'inline')
+###########################################
 
-<head>
-    <meta charset="utf-8">
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
-    <title>visuals.py (editing)</title>
-    <link id="favicon" rel="shortcut icon" type="image/x-icon" href="/static/base/images/favicon-file.ico?v=e2776a7f45692c839d6eea7d7ff6f3b2">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="/static/components/jquery-ui/themes/smoothness/jquery-ui.min.css?v=9b2c8d3489227115310662a343fce11c" type="text/css" />
-    <link rel="stylesheet" href="/static/components/jquery-typeahead/dist/jquery.typeahead.min.css?v=7afb461de36accb1aa133a1710f5bc56" type="text/css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+def filter_data(data, condition):
+    """
+    Remove elements that do not match the condition provided.
+    Takes a data list as input and returns a filtered list.
+    Conditions should be a list of strings of the following format:
+      '<field> <op> <value>'
+    where the following operations are valid: >, <, >=, <=, ==, !=
     
+    Example: ["Sex == 'male'", 'Age < 18']
+    """
+
+    field, op, value = condition.split(" ")
     
-<link rel="stylesheet" href="/static/components/codemirror/lib/codemirror.css?v=ae81317fa2b3a745892c83985827d41b">
-<link rel="stylesheet" href="/static/components/codemirror/addon/dialog/dialog.css?v=c89dce10b44d2882a024e7befc2b63f5">
-
-    <link rel="stylesheet" href="/static/style/style.min.css?v=47782e517c98a53adb514cbefb4528f2" type="text/css"/>
+    # convert value into number or strip excess quotes if string
+    try:
+        value = float(value)
+    except:
+        value = value.strip("\'\"")
     
-
-    <link rel="stylesheet" href="/custom/custom.css" type="text/css" />
-    <script src="/static/components/es6-promise/promise.min.js?v=f004a16cb856e0ff11781d01ec5ca8fe" type="text/javascript" charset="utf-8"></script>
-    <script src="/static/components/preact/index.js?v=00a2fac73c670ce39ac53d26640eb542" type="text/javascript"></script>
-    <script src="/static/components/proptypes/index.js?v=c40890eb04df9811fcc4d47e53a29604" type="text/javascript"></script>
-    <script src="/static/components/preact-compat/index.js?v=f865e990e65ad27e3a2601d8adb48db1" type="text/javascript"></script>
-    <script src="/static/components/requirejs/require.js?v=6da8be361b9ee26c5e721e76c6d4afce" type="text/javascript" charset="utf-8"></script>
-    <script>
-      require.config({
-          
-          urlArgs: "v=20180520130531",
-          
-          baseUrl: '/static/',
-          paths: {
-            'auth/js/main': 'auth/js/main.min',
-            custom : '/custom',
-            nbextensions : '/nbextensions',
-            kernelspecs : '/kernelspecs',
-            underscore : 'components/underscore/underscore-min',
-            backbone : 'components/backbone/backbone-min',
-            jed: 'components/jed/jed',
-            jquery: 'components/jquery/jquery.min',
-            json: 'components/requirejs-plugins/src/json',
-            text: 'components/requirejs-text/text',
-            bootstrap: 'components/bootstrap/js/bootstrap.min',
-            bootstraptour: 'components/bootstrap-tour/build/js/bootstrap-tour.min',
-            'jquery-ui': 'components/jquery-ui/ui/minified/jquery-ui.min',
-            moment: 'components/moment/min/moment-with-locales',
-            codemirror: 'components/codemirror',
-            termjs: 'components/xterm.js/dist/xterm',
-            typeahead: 'components/jquery-typeahead/dist/jquery.typeahead.min',
-          },
-          map: { // for backward compatibility
-              "*": {
-                  "jqueryui": "jquery-ui",
-              }
-          },
-          shim: {
-            typeahead: {
-              deps: ["jquery"],
-              exports: "typeahead"
-            },
-            underscore: {
-              exports: '_'
-            },
-            backbone: {
-              deps: ["underscore", "jquery"],
-              exports: "Backbone"
-            },
-            bootstrap: {
-              deps: ["jquery"],
-              exports: "bootstrap"
-            },
-            bootstraptour: {
-              deps: ["bootstrap"],
-              exports: "Tour"
-            },
-            "jquery-ui": {
-              deps: ["jquery"],
-              exports: "$"
-            }
-          },
-          waitSeconds: 30,
-      });
-
-      require.config({
-          map: {
-              '*':{
-                'contents': 'services/contents',
-              }
-          }
-      });
-
-      // error-catching custom.js shim.
-      define("custom", function (require, exports, module) {
-          try {
-              var custom = require('custom/custom');
-              console.debug('loaded custom.js');
-              return custom;
-          } catch (e) {
-              console.error("error loading custom.js", e);
-              return {};
-          }
-      })
-
-    document.nbjs_translations = {"domain": "nbjs", "locale_data": {"nbjs": {"": {"domain": "nbjs"}}}};
-    </script>
-
+    # get booleans for filtering
+    if op == ">":
+        matches = data[field] > value
+    elif op == "<":
+        matches = data[field] < value
+    elif op == ">=":
+        matches = data[field] >= value
+    elif op == "<=":
+        matches = data[field] <= value
+    elif op == "==":
+        matches = data[field] == value
+    elif op == "!=":
+        matches = data[field] != value
+    else: # catch invalid operation codes
+        raise Exception("Invalid comparison operator. Only >, <, >=, <=, ==, != allowed.")
     
+    # filter data and outcomes
+    data = data[matches].reset_index(drop = True)
+    return data
+
+def survival_stats(data, outcomes, key, filters = []):
+    """
+    Print out selected statistics regarding survival, given a feature of
+    interest and any number of filters (including no filters)
+    """
     
+    # Check that the key exists
+    if key not in data.columns.values :
+        print("'{}' is not a feature of the Titanic data. Did you spell something wrong?".format(key))
+        return False
 
-</head>
+    # Return the function before visualizing if 'Cabin' or 'Ticket'
+    # is selected: too many unique categories to display
+    if(key == 'Cabin' or key == 'PassengerId' or key == 'Ticket'):
+        print("'{}' has too many unique categories to display! Try a different feature.".format(key))
+        return False
 
-<body class="edit_app "
- 
-data-base-url="/"
-data-file-path="visuals.py"
-
-  
- 
-
-dir="ltr">
-
-<noscript>
-    <div id='noscript'>
-      Jupyter Notebook requires JavaScript.<br>
-      Please enable it to proceed. 
-  </div>
-</noscript>
-
-<div id="header">
-  <div id="header-container" class="container">
-  <div id="ipython_notebook" class="nav navbar-brand"><a href="/tree" title='dashboard'>
-      <img src='/static/base/images/logo.png?v=641991992878ee24c6f3826e81054a0f' alt='Jupyter Notebook'/>
-  </a></div>
-
-  
-
-<span id="save_widget" class="pull-left save_widget">
-    <span class="filename"></span>
-    <span class="last_modified"></span>
-</span>
-
-
-  
-  
-  
-  
-
-    <span id="login_widget">
-      
-    </span>
-
-  
-
-  
-  
-  </div>
-  <div class="header-bar"></div>
-
-  
-
-<div id="menubar-container" class="container">
-  <div id="menubar">
-    <div id="menus" class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
-          <p  class="navbar-text indicator_area">
-          <span id="current-mode" >current mode</span>
-          </p>
-        <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <i class="fa fa-bars"></i>
-          <span class="navbar-text">Menu</span>
-        </button>
-        <ul class="nav navbar-nav navbar-right">
-          <li id="notification_area"></li>
-        </ul>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">File</a>
-              <ul id="file-menu" class="dropdown-menu">
-                <li id="new-file"><a href="#">New</a></li>
-                <li id="save-file"><a href="#">Save</a></li>
-                <li id="rename-file"><a href="#">Rename</a></li>
-                <li id="download-file"><a href="#">Download</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Edit</a>
-              <ul id="edit-menu" class="dropdown-menu">
-                <li id="menu-find"><a href="#">Find</a></li>
-                <li id="menu-replace"><a href="#">Find &amp; Replace</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Key Map</li>
-                <li id="menu-keymap-default"><a href="#">Default<i class="fa"></i></a></li>
-                <li id="menu-keymap-sublime"><a href="#">Sublime Text<i class="fa"></i></a></li>
-                <li id="menu-keymap-vim"><a href="#">Vim<i class="fa"></i></a></li>
-                <li id="menu-keymap-emacs"><a href="#">emacs<i class="fa"></i></a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">View</a>
-              <ul id="view-menu" class="dropdown-menu">
-              <li id="toggle_header" title="Show/Hide the logo and notebook title (above menu bar)">
-              <a href="#">Toggle Header</a></li>
-              <li id="menu-line-numbers"><a href="#">Toggle Line Numbers</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Language</a>
-              <ul id="mode-menu" class="dropdown-menu">
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="lower-header-bar"></div>
-
-
-</div>
-
-<div id="site">
-
-
-<div id="texteditor-backdrop">
-<div id="texteditor-container" class="container"></div>
-</div>
-
-
-</div>
-
-
-
-
-
-
+    # Merge data and outcomes into single dataframe
+    all_data = pd.concat([data, outcomes.to_frame()], axis = 1)
     
+    # Apply filters to data
+    for condition in filters:
+        all_data = filter_data(all_data, condition)
 
+    # Create outcomes DataFrame
+    all_data = all_data[[key, 'Survived']]
+    
+    # Create plotting figure
+    plt.figure(figsize=(8,6))
 
-<script src="/static/edit/js/main.min.js?v=69ef7b7a55de6f60611ff3ae94ef5069" type="text/javascript" charset="utf-8"></script>
+    # 'Numerical' features
+    if(key == 'Age' or key == 'Fare'):
+        
+        # Remove NaN values from Age data
+        all_data = all_data[~np.isnan(all_data[key])]
+        
+        # Divide the range of data into bins and count survival rates
+        min_value = all_data[key].min()
+        max_value = all_data[key].max()
+        value_range = max_value - min_value
 
+        # 'Fares' has larger range of values than 'Age' so create more bins
+        if(key == 'Fare'):
+            bins = np.arange(0, all_data['Fare'].max() + 20, 20)
+        if(key == 'Age'):
+            bins = np.arange(0, all_data['Age'].max() + 10, 10)
+        
+        # Overlay each bin's survival rates
+        nonsurv_vals = all_data[all_data['Survived'] == 0][key].reset_index(drop = True)
+        surv_vals = all_data[all_data['Survived'] == 1][key].reset_index(drop = True)
+        plt.hist(nonsurv_vals, bins = bins, alpha = 0.6,
+                 color = 'red', label = 'Did not survive')
+        plt.hist(surv_vals, bins = bins, alpha = 0.6,
+                 color = 'green', label = 'Survived')
+    
+        # Add legend to plot
+        plt.xlim(0, bins.max())
+        plt.legend(framealpha = 0.8)
+    
+    # 'Categorical' features
+    else:
+       
+        # Set the various categories
+        if(key == 'Pclass'):
+            values = np.arange(1,4)
+        if(key == 'Parch' or key == 'SibSp'):
+            values = np.arange(0,np.max(data[key]) + 1)
+        if(key == 'Embarked'):
+            values = ['C', 'Q', 'S']
+        if(key == 'Sex'):
+            values = ['male', 'female']
 
-<script type='text/javascript'>
-  function _remove_token_from_url() {
-    if (window.location.search.length <= 1) {
-      return;
-    }
-    var search_parameters = window.location.search.slice(1).split('&');
-    for (var i = 0; i < search_parameters.length; i++) {
-      if (search_parameters[i].split('=')[0] === 'token') {
-        // remote token from search parameters
-        search_parameters.splice(i, 1);
-        var new_search = '';
-        if (search_parameters.length) {
-          new_search = '?' + search_parameters.join('&');
-        }
-        var new_url = window.location.origin + 
-                      window.location.pathname + 
-                      new_search + 
-                      window.location.hash;
-        window.history.replaceState({}, "", new_url);
-        return;
-      }
-    }
-  }
-  _remove_token_from_url();
-</script>
-</body>
+        # Create DataFrame containing categories and count of each
+        frame = pd.DataFrame(index = np.arange(len(values)), columns=(key,'Survived','NSurvived'))
+        for i, value in enumerate(values):
+            frame.loc[i] = [value, \
+                   len(all_data[(all_data['Survived'] == 1) & (all_data[key] == value)]), \
+                   len(all_data[(all_data['Survived'] == 0) & (all_data[key] == value)])]
 
-</html>
+        # Set the width of each bar
+        bar_width = 0.4
+
+        # Display each category's survival rates
+        for i in np.arange(len(frame)):
+            nonsurv_bar = plt.bar(i-bar_width, frame.loc[i]['NSurvived'], width = bar_width, color = 'r')
+            surv_bar = plt.bar(i, frame.loc[i]['Survived'], width = bar_width, color = 'g')
+
+            plt.xticks(np.arange(len(frame)), values)
+            plt.legend((nonsurv_bar[0], surv_bar[0]),('Did not survive', 'Survived'), framealpha = 0.8)
+
+    # Common attributes for plot formatting
+    plt.xlabel(key)
+    plt.ylabel('Number of Passengers')
+    plt.title('Passenger Survival Statistics With \'%s\' Feature'%(key))
+    plt.show()
+
+    # Report number of passengers with missing values
+    if sum(pd.isnull(all_data[key])):
+        nan_outcomes = all_data[pd.isnull(all_data[key])]['Survived']
+        print("Passengers with missing '{}' values: {} ({} survived, {} did not survive)".format( \
+              key, len(nan_outcomes), sum(nan_outcomes == 1), sum(nan_outcomes == 0)))
+
