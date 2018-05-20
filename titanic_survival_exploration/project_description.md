@@ -1,269 +1,57 @@
-<!DOCTYPE HTML>
-<html>
+## Content: Introduction and Foundations
+## Project: Titanic Survival Exploration
 
-<head>
-    <meta charset="utf-8">
+## Project Overview
+Welcome to the Machine Learning Engineer Nanodegree!
 
-    <title>project_description.md (editing)</title>
-    <link id="favicon" rel="shortcut icon" type="image/x-icon" href="/static/base/images/favicon-file.ico?v=e2776a7f45692c839d6eea7d7ff6f3b2">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="/static/components/jquery-ui/themes/smoothness/jquery-ui.min.css?v=9b2c8d3489227115310662a343fce11c" type="text/css" />
-    <link rel="stylesheet" href="/static/components/jquery-typeahead/dist/jquery.typeahead.min.css?v=7afb461de36accb1aa133a1710f5bc56" type="text/css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    
-<link rel="stylesheet" href="/static/components/codemirror/lib/codemirror.css?v=ae81317fa2b3a745892c83985827d41b">
-<link rel="stylesheet" href="/static/components/codemirror/addon/dialog/dialog.css?v=c89dce10b44d2882a024e7befc2b63f5">
+In this ***optional*** project, you will create decision functions that attempt to predict survival outcomes from the 1912 Titanic disaster based on each passenger's features, such as sex and age. You will start with a simple algorithm and increase its complexity until you are able to accurately predict the outcomes for at least 80% of the passengers in the provided data. This project will introduce you to some of the concepts of machine learning as you start the Nanodegree program.
 
-    <link rel="stylesheet" href="/static/style/style.min.css?v=47782e517c98a53adb514cbefb4528f2" type="text/css"/>
-    
+In addition, you'll make sure Python is installed with the necessary packages to complete this project. There are two Python libraries, `numpy` and `pandas`, that we'll use a bit here in this project. Don't worry about how these libraries work for now -- we'll get to them in more detail in later projects. This project will also familiarize you with the submission process for the projects that you will be completing as part of the Nanodegree program.
 
-    <link rel="stylesheet" href="/custom/custom.css" type="text/css" />
-    <script src="/static/components/es6-promise/promise.min.js?v=f004a16cb856e0ff11781d01ec5ca8fe" type="text/javascript" charset="utf-8"></script>
-    <script src="/static/components/preact/index.js?v=00a2fac73c670ce39ac53d26640eb542" type="text/javascript"></script>
-    <script src="/static/components/proptypes/index.js?v=c40890eb04df9811fcc4d47e53a29604" type="text/javascript"></script>
-    <script src="/static/components/preact-compat/index.js?v=f865e990e65ad27e3a2601d8adb48db1" type="text/javascript"></script>
-    <script src="/static/components/requirejs/require.js?v=6da8be361b9ee26c5e721e76c6d4afce" type="text/javascript" charset="utf-8"></script>
-    <script>
-      require.config({
-          
-          urlArgs: "v=20180520130531",
-          
-          baseUrl: '/static/',
-          paths: {
-            'auth/js/main': 'auth/js/main.min',
-            custom : '/custom',
-            nbextensions : '/nbextensions',
-            kernelspecs : '/kernelspecs',
-            underscore : 'components/underscore/underscore-min',
-            backbone : 'components/backbone/backbone-min',
-            jed: 'components/jed/jed',
-            jquery: 'components/jquery/jquery.min',
-            json: 'components/requirejs-plugins/src/json',
-            text: 'components/requirejs-text/text',
-            bootstrap: 'components/bootstrap/js/bootstrap.min',
-            bootstraptour: 'components/bootstrap-tour/build/js/bootstrap-tour.min',
-            'jquery-ui': 'components/jquery-ui/ui/minified/jquery-ui.min',
-            moment: 'components/moment/min/moment-with-locales',
-            codemirror: 'components/codemirror',
-            termjs: 'components/xterm.js/dist/xterm',
-            typeahead: 'components/jquery-typeahead/dist/jquery.typeahead.min',
-          },
-          map: { // for backward compatibility
-              "*": {
-                  "jqueryui": "jquery-ui",
-              }
-          },
-          shim: {
-            typeahead: {
-              deps: ["jquery"],
-              exports: "typeahead"
-            },
-            underscore: {
-              exports: '_'
-            },
-            backbone: {
-              deps: ["underscore", "jquery"],
-              exports: "Backbone"
-            },
-            bootstrap: {
-              deps: ["jquery"],
-              exports: "bootstrap"
-            },
-            bootstraptour: {
-              deps: ["bootstrap"],
-              exports: "Tour"
-            },
-            "jquery-ui": {
-              deps: ["jquery"],
-              exports: "$"
-            }
-          },
-          waitSeconds: 30,
-      });
+## Software Requirements
+This project uses the following software and Python libraries:
 
-      require.config({
-          map: {
-              '*':{
-                'contents': 'services/contents',
-              }
-          }
-      });
+- [Python 2.7](https://www.python.org/download/releases/2.7/)
+- [NumPy](http://www.numpy.org/)
+- [pandas](http://pandas.pydata.org/)
+- [matplotlib](http://matplotlib.org/)
 
-      // error-catching custom.js shim.
-      define("custom", function (require, exports, module) {
-          try {
-              var custom = require('custom/custom');
-              console.debug('loaded custom.js');
-              return custom;
-          } catch (e) {
-              console.error("error loading custom.js", e);
-              return {};
-          }
-      })
+You will also need to have software installed to run and execute a [Jupyter Notebook](http://ipython.org/notebook.html).
 
-    document.nbjs_translations = {"domain": "nbjs", "locale_data": {"nbjs": {"": {"domain": "nbjs"}}}};
-    </script>
+If you do not have Python installed yet, it is highly recommended that you install the [Anaconda](http://continuum.io/downloads) distribution of Python, which already has the above packages and more included. Make sure that you select the Python 2.7 installer and not the Python 3.x installer.
 
-    
-    
+If you already have Python 2.7 installed on your computer, then you can install `numpy`, `pandas`, `matplotlib` and Jupyter Notebook (formerly known as "iPython") by using [pip](https://pip.pypa.io/en/stable/) on the command line. [This page](http://www.lfd.uci.edu/~gohlke/pythonlibs/) may also be of use for some packages for Windows users, if pip has trouble performing the installation. After installing pip, you can install all the packages with the following command:
 
-</head>
+`sudo pip install numpy pandas matplotlib jupyter`
 
-<body class="edit_app "
- 
-data-base-url="/"
-data-file-path="project_description.md"
+## Starting the Project
 
-  
- 
+For this assignment, you can find the `titanic_survival_exploration` folder containing the necessary project files on the [Machine Learning projects GitHub](https://github.com/udacity/machine-learning), under the `projects` folder. You may download all of the files for projects we'll use in this Nanodegree program directly from this repo. Please make sure that you use the most recent version of project files when completing a project!
 
-dir="ltr">
+This project contains three files:
 
-<noscript>
-    <div id='noscript'>
-      Jupyter Notebook requires JavaScript.<br>
-      Please enable it to proceed. 
-  </div>
-</noscript>
+- `titanic_survival_exploration.ipynb`: This is the main file where you will be performing your work on the project.
+- `titanic_data.csv`: The project dataset. You?ll load this data in the notebook.
+- `visuals.py`: This Python script provides supplementary visualizations for the project. Do not modify.
 
-<div id="header">
-  <div id="header-container" class="container">
-  <div id="ipython_notebook" class="nav navbar-brand"><a href="/tree" title='dashboard'>
-      <img src='/static/base/images/logo.png?v=641991992878ee24c6f3826e81054a0f' alt='Jupyter Notebook'/>
-  </a></div>
+In the Terminal or Command Prompt, navigate to the folder containing the project files, and then use the command `jupyter notebook titanic_survival_exploration.ipynb` to open up a browser window or tab to work with your notebook. Alternatively, you can use the command `jupyter notebook` or `ipython notebook` and navigate to the notebook file in the browser window that opens. Follow the instructions in the notebook and answer each question presented to successfully complete the project. A **README** file has also been provided with the project files which may contain additional necessary information or instruction for the project. 
+## Submitting the Project
 
-  
+### Evaluation
+Your project will be reviewed by a Udacity reviewer against the **<a href="https://review.udacity.com/#!/rubrics/147/view" target="_blank"> Titanic Survival Exploration project rubric</a>**. Be sure to review this rubric thoroughly and self-evaluate your project before submission. All criteria found in the rubric must be *meeting specifications* for you to pass.
 
-<span id="save_widget" class="pull-left save_widget">
-    <span class="filename"></span>
-    <span class="last_modified"></span>
-</span>
+### Submission Files
+When you are ready to submit your project, collect the following files and compress them into a single archive for upload. Alternatively, you may supply the following files on your GitHub Repo in a folder named `titanic_survival_exploration` for ease of access:
+ - The `titanic_survival_exploration.ipynb` notebook file with all questions answered and all code cells executed and displaying output.
+ - An **HTML** export of the project notebook with the name **report.html**. Instructions for exporting to HTML are at the bottom of the notebook; you may need to install the [mistune](https://pypi.python.org/pypi/mistune) package first, e.g. via `pip install mistune` in the terminal.
 
+Once you have collected these files and reviewed the project rubric, proceed to the project submission page.
 
-  
-  
-  
-  
+### I'm Ready!
+When you're ready to submit your project, click on the **Submit Project** button at the bottom of the page.
 
-    <span id="login_widget">
-      
-    </span>
+If you are having any problems submitting your project or wish to check on the status of your submission, please email us at **machine-support@udacity.com** or visit us in the <a href="http://discussions.udacity.com" target="_blank">discussion forums</a>.
 
-  
+### What's Next?
+You will get an email as soon as your reviewer has feedback for you. In the meantime, review your next project and feel free to get started on it or the courses supporting it!
 
-  
-  
-  </div>
-  <div class="header-bar"></div>
-
-  
-
-<div id="menubar-container" class="container">
-  <div id="menubar">
-    <div id="menus" class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
-          <p  class="navbar-text indicator_area">
-          <span id="current-mode" >current mode</span>
-          </p>
-        <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <i class="fa fa-bars"></i>
-          <span class="navbar-text">Menu</span>
-        </button>
-        <ul class="nav navbar-nav navbar-right">
-          <li id="notification_area"></li>
-        </ul>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">File</a>
-              <ul id="file-menu" class="dropdown-menu">
-                <li id="new-file"><a href="#">New</a></li>
-                <li id="save-file"><a href="#">Save</a></li>
-                <li id="rename-file"><a href="#">Rename</a></li>
-                <li id="download-file"><a href="#">Download</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Edit</a>
-              <ul id="edit-menu" class="dropdown-menu">
-                <li id="menu-find"><a href="#">Find</a></li>
-                <li id="menu-replace"><a href="#">Find &amp; Replace</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Key Map</li>
-                <li id="menu-keymap-default"><a href="#">Default<i class="fa"></i></a></li>
-                <li id="menu-keymap-sublime"><a href="#">Sublime Text<i class="fa"></i></a></li>
-                <li id="menu-keymap-vim"><a href="#">Vim<i class="fa"></i></a></li>
-                <li id="menu-keymap-emacs"><a href="#">emacs<i class="fa"></i></a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">View</a>
-              <ul id="view-menu" class="dropdown-menu">
-              <li id="toggle_header" title="Show/Hide the logo and notebook title (above menu bar)">
-              <a href="#">Toggle Header</a></li>
-              <li id="menu-line-numbers"><a href="#">Toggle Line Numbers</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Language</a>
-              <ul id="mode-menu" class="dropdown-menu">
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="lower-header-bar"></div>
-
-
-</div>
-
-<div id="site">
-
-
-<div id="texteditor-backdrop">
-<div id="texteditor-container" class="container"></div>
-</div>
-
-
-</div>
-
-
-
-
-
-
-    
-
-
-<script src="/static/edit/js/main.min.js?v=69ef7b7a55de6f60611ff3ae94ef5069" type="text/javascript" charset="utf-8"></script>
-
-
-<script type='text/javascript'>
-  function _remove_token_from_url() {
-    if (window.location.search.length <= 1) {
-      return;
-    }
-    var search_parameters = window.location.search.slice(1).split('&');
-    for (var i = 0; i < search_parameters.length; i++) {
-      if (search_parameters[i].split('=')[0] === 'token') {
-        // remote token from search parameters
-        search_parameters.splice(i, 1);
-        var new_search = '';
-        if (search_parameters.length) {
-          new_search = '?' + search_parameters.join('&');
-        }
-        var new_url = window.location.origin + 
-                      window.location.pathname + 
-                      new_search + 
-                      window.location.hash;
-        window.history.replaceState({}, "", new_url);
-        return;
-      }
-    }
-  }
-  _remove_token_from_url();
-</script>
-</body>
-
-</html>
