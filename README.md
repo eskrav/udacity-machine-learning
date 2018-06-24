@@ -1,4 +1,4 @@
-# Udacity: Machine Learning Nanodegree
+# Udacity: Machine Learning Engineer Nanodegree
 
 ## About
 - Project work for [Udacity Machine Learning Engineer Nanodegree](https://www.udacity.com/course/machine-learning-engineer-nanodegree--nd009t)
