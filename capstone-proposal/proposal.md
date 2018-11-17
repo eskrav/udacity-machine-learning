@@ -5,7 +5,7 @@ November 17th, 2018
 
 ## Proposal
 
-## Abstract
+### Abstract
 
 In this project, I propose to create a classification model which accurately predicts whether peer-to-peer loans are repaid, or not.  To this end, I compare labeled historical Prosper loan data to the final repayment status predicted by my algorithm of choice (whether the loan was eventually repaid, or not).  The dataset includes 113,937 loans, with 81 features per loan, including loan amount, interest rate, demographic information, and actual historical loan status.  This information is particularly important for Prosper lenders, for the purpose of determining whether to lend money to a particular borrower, and for the company towards determining whether to offer someone a loan, which terms to offer, and what risk category to assign to a borrower.
 
