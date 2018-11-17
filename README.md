@@ -8,8 +8,8 @@
 
 Section | Project | Status |
 --- | --- | ---
-Introductory Practice Project | [Titanic Survival Exploration](./titanic_survival_exploration) | Done 
-Model Evaluation and Validation | [Predicting Boston Housing Prices](./boston_housing) | Done 
+Introductory Practice Project | [Titanic Survival Exploration](./titanic-survival-exploration) | Done 
+Model Evaluation and Validation | [Predicting Boston Housing Prices](./boston-housing) | Done 
 Supervised Learning | Finding Donors for CharityML | 
 Deep Learning | Dog Breed Recognition | 
 Unsupervised Learning | Creating Customer Segments | 
