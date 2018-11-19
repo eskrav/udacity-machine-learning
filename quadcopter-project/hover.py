@@ -31,8 +31,8 @@ class Task():
         # assigns mild penalties from default +1 reward (for continuing episode), for deviations from target positions
         # assigns severe penalty for crashes
         # assigns strong reward for hitting exact target
-        # assigns moderately large reward for being within 5 coordinate points of target in all directions
-        reward = 1 - 0.001*(abs(self.sim.pose[:3] - self.target_pos)).sum() - 30*(self.sim.pose[2]==0) + 30*((self.sim.pose[:3] == self.target_pos).sum() == 3) + 5*((self.sim.pose[:3] <= np.array([5, 5, 5])).sum == 3)
+        # assigns moderately large reward for being within 5 coordinate points of target along z axis (considered OK if wind knocks it slightly off course horizontally)
+        reward = 1 - 0.001*(abs(self.sim.pose[:3] - self.target_pos)).sum() - 100*(self.sim.pose[2]==0) + 10*((abs(self.sim.pose[:3] - self.target_pos) < abs(0.05*self.target_pos)).sum() == 3) + 5*((abs(self.sim.pose[:3] - self.target_pos) < abs(0.1*self.target_pos)).sum() == 3) + 2.5*((abs(self.sim.pose[:3] - self.target_pos) < abs(0.15*self.target_pos)).sum() == 3) + 1.25*((abs(self.sim.pose[:3] - self.target_pos) < abs(0.2*self.target_pos)).sum() == 3)
         return reward
 
     def step(self, rotor_speeds):
