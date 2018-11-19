@@ -29,11 +29,11 @@ class Critic:
         # net_states = layers.Dense(units=32, activation='relu')(states)
         # net_states = layers.Dense(units=64, activation='relu')(net_states)
 
-        net_states = layers.Dense(units=32, kernel_regularizer=layers.regularizers.l2(0.001))(states)
+        net_states = layers.Dense(units=64, kernel_regularizer=layers.regularizers.l2(0.001))(states)
         net_states = layers.BatchNormalization()(net_states)
         net_states = layers.Activation("relu")(net_states)
 
-        net_states = layers.Dense(units=64, kernel_regularizer=layers.regularizers.l2(0.001))(net_states)
+        net_states = layers.Dense(units=128, kernel_regularizer=layers.regularizers.l2(0.001))(net_states)
         net_states = layers.BatchNormalization()(net_states)
         net_states = layers.Activation("relu")(net_states)
 
@@ -41,11 +41,11 @@ class Critic:
         # net_actions = layers.Dense(units=32, activation='relu')(actions)
         # net_actions = layers.Dense(units=64, activation='relu')(net_actions)
 
-        net_actions = layers.Dense(units=32, kernel_regularizer=layers.regularizers.l2(0.001))(actions)
+        net_actions = layers.Dense(units=64, kernel_regularizer=layers.regularizers.l2(0.001))(actions)
         net_actions = layers.BatchNormalization()(net_actions)
         net_actions = layers.Activation("relu")(net_actions)
 
-        net_actions = layers.Dense(units=64, kernel_regularizer=layers.regularizers.l2(0.001))(net_actions)
+        net_actions = layers.Dense(units=128, kernel_regularizer=layers.regularizers.l2(0.001))(net_actions)
         net_actions = layers.BatchNormalization()(net_actions)
         net_actions = layers.Activation("relu")(net_actions)
 
