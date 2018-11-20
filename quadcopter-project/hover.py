@@ -50,9 +50,10 @@ class Task():
         # reward = 1 - 0.001*(distance).sum() - 1000*(self.sim.pose[2]==0) + 50*(region05) + 20*(abs(self.sim.pose[2] - height) < (0.5*height)) - 1*(region05 & (sum(self.sim.v)>2)) # doesn't work at all
         # reward = 1 - 0.001*(distance).sum() - 1000*(self.sim.pose[2]==0) + 50*(region05) #- 0.5*(region05 & (abs(self.sim.v).sum()>2)) # may have learned, but forgot quite quickly
         # reward = 1 + 0.03*(self.sim.pose[2]) - 0.0001*(abs(self.sim.pose[0] - self.sim.init_pose[0])) - 0.0001*(abs(self.sim.pose[1] - self.sim.init_pose[1])) - 0.01*(self.sim.v[2]<0)
-        # reward = 1 - 0.003*(distance).sum() - 300*(self.sim.pose[2]==0) + 10*(region05) - 0.0003*(abs(self.sim.v[:3])).sum() # sort-of works, but always ends up too high; doesn't really hover - does not unlearn, either, however
+        # reward =  - 0.0003*(abs(self.sim.v[:3])).sum() # sort-of works, but always ends up too high; doesn't really hover - does not unlearn, either, however
         # reward = 1 - 0.003*(distance).sum() - 300*(self.sim.pose[2]==0) + 10*(target) + 1*(region10 | region05) - 0.003*(abs(self.sim.v[:3])).sum() # didn't work
-        reward = 1 - 0.005*(distance).sum() - 2000*(self.sim.pose[2]==0) + 100*(target) + 2*(region05) + 1*(region10) -  0.005*(abs(self.sim.v[:3])).sum()
+        # reward = 1 + -0.003*(distance).sum() + region05 + 0.5*region10 - 20*(self.sim.pose[2]==0)
+        reward = 1 - 0.003*(distance).sum() - 20*(self.sim.pose[2]==0) + 5*region05
         return reward
 
     def step(self, rotor_speeds):

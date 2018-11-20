@@ -34,15 +34,15 @@ class Actor:
         # nnet = layers.Dense(units=64, activation='relu')(net)
         # nnet = layers.Dense(units=32, activation='relu')(net)
 
-        net = layers.Dense(units=64, kernel_regularizer=layers.regularizers.l2(0.001))(states)
+        net = layers.Dense(units=256, kernel_regularizer=layers.regularizers.l2(0.001))(states)
         net = layers.BatchNormalization()(net)
         net = layers.Activation("relu")(net)
 
-        net = layers.Dense(units=128, kernel_regularizer=layers.regularizers.l2(0.001))(net)
+        net = layers.Dense(units=512, kernel_regularizer=layers.regularizers.l2(0.001))(net)
         net = layers.BatchNormalization()(net)
         net = layers.Activation("relu")(net)
 
-        net = layers.Dense(units=6432, kernel_regularizer=layers.regularizers.l2(0.001))(net)
+        net = layers.Dense(units=256, kernel_regularizer=layers.regularizers.l2(0.001))(net)
         net = layers.BatchNormalization()(net)
         net = layers.Activation("relu")(net)
 
