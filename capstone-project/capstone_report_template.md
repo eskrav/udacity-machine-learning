@@ -1,6 +1,7 @@
 # Machine Learning Engineer Nanodegree
 ## Capstone Project
-Ekaterina Kravtchenko 
+Ekaterina Kravtchenko
+ 
 November 26th, 2018
 
 ### Abstract
@@ -53,7 +54,7 @@ $$Precision = \frac{True Positive}{True Positive + False Positive}$$
 
 * The F1 score, which seeks a balance between recall and precision:
 
-$$2 \cdot \frac{Precision \cdot Recall}{Precision + Recall}$$
+$$F1 = 2 \cdot \frac{Precision \cdot Recall}{Precision + Recall}$$
 
 
 ## II. Analysis
@@ -227,7 +228,7 @@ Overall, the AdaBoost and XGBoost algorithms appeared to consistently perform be
 - _Is the process of improvement clearly documented, such as what techniques were used?_
 - _Are intermediate and final solutions clearly reported as the process is improved?_-->
 
-To improve the model, I did a grid search analysis of the AdaBoostClassifier, gathering the F1, precision, and recall metrics for each model.  I varied the number of estimators (between 10 and 1000), the learning rate (between 0.001 and 1), and the algorithm (SAMME vs. SAMME.R).  The optimal model chosen by the grid search was (...........).
+To improve the model, I did a grid search analysis of the AdaBoostClassifier, gathering the F1, precision, and recall metrics for each model.  I varied the number of estimators (between 10 and 1000), the learning rate (between 0.001 and 1), and the algorithm (SAMME vs. SAMME.R).  The optimal model chosen by the grid search used the `SAMME.R` algorithm, the default Decision Tree base estimator (no other estimators were tested), a learning rate of 1, and 1000 estimators.
 
 
 ## IV. Results
@@ -236,11 +237,11 @@ To improve the model, I did a grid search analysis of the AdaBoostClassifier, ga
 
 ### Model Evaluation and Validation
 
-As mentioned, the optimal model in the end was the AdaBoost Classifier, with (........).  This was identified through a process of evaluating different candidate models with several different versions of the dataset, and then optimizing the most promising model using a grid search through the common range of parameters.
+As mentioned, the optimal model in the end was the AdaBoost Classifier, with the parameters described above.  This was identified through a process of evaluating different candidate models with several different versions of the dataset, and then optimizing the most promising model using a grid search through the common range of parameters.
 
 I would argue that the model is robust to changes in the training data, given that I have tested it with several variably reduced versions of the dataset, and it in general performed well, and typically better than other models or on par/close to the performance of XGBoost.  Further, it generally performed well on significantly smaller versions of the training data (1%, 10%).
 
-I further ran a sensitivity analysis
+A final model on reduced data using only the five most important features performed worse, but retained a high precision, suggesting the model is robust to data perturbations.
 
 <!--In this section, the final model and any supporting qualities should be evaluated in detail. It should be clear how the final model was derived and why this model was chosen. In addition, some type of analysis should be used to validate the robustness of this model and its solution, such as manipulating the input data or environment to see how the model’s solution is affected (this is called sensitivity analysis). Questions to ask yourself when writing this section:
 - _Is the final model reasonable and aligning with solution expectations? Are the final parameters of the model appropriate?_
@@ -255,7 +256,15 @@ I further ran a sensitivity analysis
 - _Have you thoroughly analyzed and discussed the final solution?_
 - _Is the final solution significant enough to have solved the problem?_-->
 
-Overall, my model performs higher than both the benchmark I chose, and the naive predictor: (...........).
+Overall, my model performs higher than both the benchmark I chose, and the naive predictor, particularly on precision, which ensures that few loans marked complete are in fact defaults.  The optimized model further performs higher on precision than the unoptimized model, although it performs worse on accuracy, F1-score, and recall:
+
+
+|     Metric     | Benchmark         | Naive    | Unoptimized  | Optimized  |
+| :------------: | :---------------: | :---------------: | :---------------: | :-------------: | 
+| Accuracy Score | ?                 | 0.6912            | 0.7217            |   0.6898        |
+| F-score        | 0.5487            | 0.8174            | 0.8051            |   0.7609        |
+| Precision      | 0.4404            | 0.6912            | 0.7725            |   0.8047        |
+| Recall         | 0.7425            | 1.0000            | 0.8406            |   0.7217        |
 
 The results are stronger, but only marginally so.  Ideally, I would like to work on this problem further to improve the performance of my model, and to attempt to optimize multiple promising models to see which gives the best performance.  Given the potential money at stake (as I showed in my exploratory analysis, lenders are likely to lose far more money than Prosper estimates), it would be important to develop a more precise model.
 
