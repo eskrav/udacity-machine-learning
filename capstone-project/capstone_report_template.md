@@ -6,7 +6,7 @@ November 26th, 2018
 
 ### Abstract
 
-In this project, I created a classification model which predicts, from the point of view of an individual lender, whether peer-to-peer loans will be repaid, or not.  To this end, I compared labeled historical Prosper loan data to the repayment status predicted by several supervised learning algorithms.  The original dataset includes 113,937 loans, with 81 features per loan, including loan amount, interest rate, demographic information, and actual historical loan status.  This information is particularly important for Prosper lenders, for the purpose of determining whether to lend money to a particular borrower, and for the company towards determining whether to offer someone a loan, which terms to offer, and what risk category to assign to a borrower (although the model is geared towards potential lenders).
+In this project, I created a classification model which predicts, from the point of view of an individual lender, whether a peer-to-peer loan will likely be repaid, or not.  To this end, I compared labeled historical Prosper loan data to the repayment status predicted by several supervised learning algorithms.  The original dataset includes 113,937 loans, with 81 features per loan, including loan amount, interest rate, demographic information, and actual historical loan status.  This information is particularly important for Prosper lenders, for the purpose of determining whether to lend money to a particular borrower; and for the company, towards determining whether to offer a potential borrower a loan, which terms to offer, and what risk category to assign to a borrower (although this particular model is geared towards potential lenders).
 
 ## I. Definition
 <!--_(approx. 1-2 pages)_-->
@@ -16,11 +16,11 @@ In this project, I created a classification model which predicts, from the point
 - _Has an overview of the project been provided, such as the problem domain, project origin, and related datasets or input data?_
 - _Has enough background information been given so that an uninformed reader would understand the problem domain and following problem statement?_-->
 
-The main problem in the lending business is determining whether to offer a given borrower a loan, what amount is safe to lend them, and what interest rate to charge them.  Peer-to-peer lending companies offer loans, under company-determined terms, to potential borrowers, and then allow private individuals signed up with the service to choose whether to contribute to funding the loan (e.g., a private individual can choose to contribute 5% of the loan amount to a given borrower).  These companies have the additional problem of determining how to accurately present loan risk (i.e., risk of non-payment or defaulting) to potential lenders.
+Some of the main problems in the lending business are determining whether to offer a given borrower a loan, what amount is safe to lend them, and what interest rate to charge them.  Peer-to-peer lending companies offer loans, under company-determined terms, to potential borrowers, and then allow private individuals signed up with the service to choose whether to contribute to funding the loan (e.g., a private individual can choose to contribute 5%, or any other portion of the loan amount to a given borrower).  These companies have the additional problem of determining how to accurately present loan risk (i.e., risk of non-payment or defaulting) to potential lenders.
 
-In the first case, the company must determine, on the basis of background financial and demographic information, the loan amount, and other factors, whether to offer a potential borrower a loan in the first place.  In the second case, potential lenders must decide whether they're willing to lend a potential borrower money.  For these lenders, an accurate assessment of risk is very useful.
+The company must determine, on the basis of background financial and demographic information, the requested loan amount, and other factors, whether to extend a loan to a potential borrower.  Potential lenders, on the other hand must decide whether they're willing to lend an approved borrower money.  For these lenders, an accurate assessment of risk is very useful, and as I point out in my previous exploration of this data, Prosper tends to publicly overestimate potential lender profit, and may underestimate the likelihood of default.
 
-Given that we have a large database of historical information on which loans were in the end repaid, or not, this is fertile ground for building a supervised learning model to predict repayment status.  A version of this model may assist a company in deciding who to offer a loan to in the first place, and on what terms, and assist potential lenders in deciding who to risk lending money to.  My personal motivation was to systematically investigate a rich and complex data set that I previously worked with, to see if I can get additional insight into qualitative patterns I observed, and to see if I can improve on Prosper's less formal predictions of repayment likelihood.
+Given that we have a large database of historical information on repaid or defaulted loans, this is fertile ground for building a supervised learning model which can predict repayment status.  A version of this model may also assist a company in deciding who to offer a loan to in the first place, and on what terms, but here is primarily aimed at assisting potential lenders in deciding who to risk lending money to, in the first place.  My personal motivation in this project was to systematically investigate a rich and complex data set which I had previously worked with, to see if I could get additional insight into some of the qualitative patterns I observed.  I would have liked to see if I could improve on Prosper's less formal predictions of repayment likelihood -- but this is difficult to compare directly, as Prosper assigns risk scores, rather than likelihoods of repayment.
 
 There have been many previous attempts at building models to assist lenders in deciding whether, and how much to invest.  Published models use deep learning methods (e.g., https://arxiv.org/abs/1810.03466v2; http://arxiv.org/abs/1811.06471v1), coordinate descent (e.g., http://arxiv.org/abs/1705.08435v2), and a wider variety of models tackle credit worthiness in general (e.g., see https://www.moodysanalytics.com/risk-perspectives-magazine/managing-disruption/spotlight/machine-learning-challenges-lessons-and-opportunities-in-credit-risk-modeling for an overview).  As this source discusses, Random Forest and Boosting algorithms are particularly well-suited to this problem.
 
@@ -31,24 +31,24 @@ There have been many previous attempts at building models to assist lenders in d
 - _Have you thoroughly discussed how you will attempt to solve the problem?_
 - _Is an anticipated solution clearly defined? Will the reader understand what results you are looking for?_-->
 
-The problem to be solved is to predict, from the point of view of a potential lender, whether a loan will be repaid, or not.  This can be done in terms of probability of repayment, or a categorical determination by a model.  This prolem concerns only historical loans, as the end status of loans currently in repayment is not known.  Fundamentally, a lander will want to know whether or not a loan, given the demographic and other data available to them at the outset, is likely to be repaid. 
+The problem I am aiming to solve is predicting, from the point of view of a potential lender, whether a loan will be repaid, or not.  This can be done in terms of providing a probability of repayment, or a categorical prediction of whether the loan will be repaid.  This problem can be addressed using the known end status of historical loans, as the end status of loans currently in repayment is not known.  Generally, a lender will want to know whether or not a loan, given the demographic and other data available to them at the outset, is likely to be repaid. 
 
-To this end, I built a classification model which predicts loan repayment status (whether the loan was in the end repaid, or not).  The accuracy of the model is evaluated using metrics detailed below.  The dataset contains a large number of features, many of which are correleated with one another, as shown in the exploratory analysis.  To see if I can simplify the dataset, I use Princial Component Analysis (PCA) for dimensionality reduction.
+To this end, I built a classification model which predicts whether a loan will ultimately default, or be repaid.  The accuracy of the model is evaluated using the metrics detailed below.  The dataset also contains a large number of features, many of which are correlated with one another, as shown in the exploratory analysis.  To see if I can simplify the feature set, I use Principal Component Analysis (PCA) for dimensionality reduction, selecting either the top 3 most important features (with the top 3 accounting for most of the variance), or the top 10.  I similarly select either the top 10% of the most important features (those that account for the most variance), or the top 30%.
 
-The techniques I use are largely those accepted in determining credit risk - namely, ensemble methods such as random forests and boosting algorithms (in my case, AdaBoost and XGBoost).  I also use Logistic Regression, as the easily interpretable results, which give the likelihood that particular loans will default, make it an attractive method.  I use a grid analysis to determine optimal parameterization of the most promising model, given performance of the models with their default settings on the training and test datasets.
+The techniques I use are largely those accepted in determining credit risk - namely, ensemble methods such as random forests and boosting algorithms (in my case, AdaBoost and XGBoost).  I also use Logistic Regression, as the easily interpretable results, which give the likelihood that particular loans will default, make it an attractive method.  I use a grid analysis to determine optimal parameterization of one the more promising models, chosen on the basis of model performance with default settings on the training and test datasets.
 
 ### Metrics
 <!--In this section, you will need to clearly define the metrics or calculations you will use to measure performance of a model or result in your project. These calculations and metrics should be justified based on the characteristics of the problem and problem domain. Questions to ask yourself when writing this section:
 - _Are the metrics you’ve chosen to measure the performance of your models clearly discussed and defined?_
 - _Have you provided reasonable justification for the metrics chosen based on the problem and solution?_-->
 
-The evaluation metrics I am primarily concerned with are the following:
+The evaluation metrics I am primarily concerned with are the following, with a particular focus on precision:
 
 * Recall, which calculates how many of the completed loans are in fact labeled as completed:
 
 $$Recall = \frac{True Positive}{True Positive + False Negative}$$
 
-* Precision, which calculates how many of those loans labeled completed are, in fact, completed (as opposed to defaulted).  This would appear to be the metric of most interest, as we are most concerned with predicting loans likely to default:
+* Precision, which calculates how many of those loans labeled completed are, in fact, completed (as opposed to defaulted).  This would appear to be the metric of most interest, as we are most concerned with predicting loans likely to default -- it is intuitively preferable that, all else being equal, a lender forego investing in a loan that may pay off, than invest in a loan relatively likely to default:
 
 $$Precision = \frac{True Positive}{True Positive + False Positive}$$
 
@@ -70,9 +70,9 @@ $$F1 = 2 \cdot \frac{Precision \cdot Recall}{Precision + Recall}$$
 
 The original dataset is linked here: https://s3.amazonaws.com/udacity-hosted-downloads/ud651/prosperLoanData.csv
 
-I previously cleaned and performed an exploratory analysis of this dataset for the Data Analyst Nanodegree.  This is a very large historical dataset of peer-to-peer loans, including background financial and demographic information on borrowers, the risk status assigned by Prosper itself and likely lender yield, and most importantly, information on whether past loans were in fact repaid, or not.  The dataset contains information on 113,937 loans, with 81 continuous or categorical features per loan.
+I previously cleaned and performed an exploratory analysis of this dataset for the Data Analyst Nanodegree.  This is a very large historical dataset of peer-to-peer loans, including background financial and demographic information on borrowers, the risk status and expected lender yield indicated by Prosper itself, and most importantly, information on whether past loans were in fact repaid, or not.  The dataset contains information on 113,937 loans, with 81 continuous or categorical features per loan.
 
-I use a slightly modified version of the dataset, which I already cleaned and organized, which is generated by the following R code: https://github.com/eskrav/udacity-data-analyst/blob/master/explore-and-summarize/explore-and-summarize.Rmd.  I further cleaned and modified it for use in this project.
+I use a slightly modified version of the dataset, which I previously cleaned and organized, which is generated by the following R code: https://github.com/eskrav/udacity-data-analyst/blob/master/explore-and-summarize/explore-and-summarize.Rmd.  I further clean and modify the dataset for use in this project.
 
 ### Exploratory Visualization
 <!--In this section, you will need to provide some form of visualization that summarizes or extracts a relevant characteristic or feature about the data. The visualization should adequately support the data being used. Discuss why this visualization was chosen and how it is relevant. Questions to ask yourself when writing this section:
@@ -80,15 +80,15 @@ I use a slightly modified version of the dataset, which I already cleaned and or
 - _Is the visualization thoroughly analyzed and discussed?_
 - _If a plot is provided, are the axes, title, and datum clearly defined?_-->
 
-As can be seen in Figure 1, some features in this dataset are quite clearly (as well as, in this case, purposefull) predictive of loan repayment status.
+As can be seen in Figure 1, some features in this dataset are quite clearly (as well as, in this case, purposefully) predictive of loan repayment status.
 
-![Loan Repayment by Prosper Rating](loanstatus.png)
+![Loan Repayment by Prosper Rating][image-1]
 
 This is information explicitly provided by the loan company for the purpose of helping the potential lender decide whether a borrower is trustworthy.  Although these loan ratings are by no means perfectly predictive, it is clearly the case that the higher the rating assigned by the company, the higher the likelihood of loan repayment.
 
 Other features are not specifically designed by the company to be predictive of loan repayment, and yet appear quite informative, as can be seen in Figure 2.
 
-![Loan Repayment by Income Range](incomerange.png)
+![Loan Repayment by Income Range][image-2]
 
 Here, one can clearly see that the more the potential borrower earns, the more likely they (unsurprisingly) are to replay the loan.
 
@@ -156,7 +156,7 @@ This model achieves a Recall score of 0.74, a Precision score of 0.44, and an F1
 - _Based on the **Data Exploration** section, if there were abnormalities or characteristics that needed to be addressed, have they been properly corrected?_
 - _If no preprocessing is needed, has it been made clear why?_-->
 
-The pre-processing steps can be viewed in more detail in this file: https://github.com/eskrav/udacity-machine-learning/tree/master/capstone-project/capstone_project.html.  The data that I imported was already pre-cleaned, explored, and summarized, as stated above.  
+The pre-processing steps can be viewed in more detail in this file: https://github.com/eskrav/udacity-machine-learning/tree/master/capstone-project/capstone\_project.html.  The data that I imported was already pre-cleaned, explored, and summarized, as stated above.  
 
 All current loans had already been removed from the dataset, as I was solely interested in historical loans which have already been repaid, or defaulted.  The few historical cancelled loans had been removed from the data, as they do not result in any gain or yield for the lender, and therefore are not of much interest to lenders deciding whether to lend money.
 
@@ -198,14 +198,14 @@ At the end of this process, there are 55,084 records left, with 69.12% of these 
 
 After plotting the continuous features in this dataset, it became apparent that many were significantly right- or left-skewed.  To prevent extreme values from significantly influencing any algorithms I use, I log-transformed all features that showed noticeable skew.  For instance, while not quite normally distributed, `EmploymentStatus` shows significantly less skew after being log-transformed:
 
-![Employment Status](employmentstatus.png)
-![Employment Status (Log-Transformed)](employmentstatus2.png)
+![Employment Status][image-3]
+![Employment Status (Log-Transformed)][image-4]
 
 Afterwards, all categorical data was dummy coded, since many algorithms take only numerical input.  After dummy coding, the dataset is leave with 88 total features.
 
 #### Dimensionality Reduction
 
-I then used Pricipal Component Analysis 9PCA) to see if the features in my dataset could be reduced to fewer dimensions, which could improve algorithm performance, and reduce feature redundancy.  I first split the data into training and testing datasets, and scaled all numerical features to ensure that they are treated equally by algorithms, rather than any being given undue weight.
+I then used Principal Component Analysis (PCA) to see if the features in my dataset could be reduced to fewer dimensions, which could improve algorithm performance, and reduce feature redundancy.  I first split the data into training and testing datasets, and scaled all numerical features to ensure that they are treated equally by algorithms, rather than any being given undue weight.
 
 Several training and testing sets were created: one that simply lacked the columns with missing values, one that reduced the features to 10 components, one that reduced them to 3 components, one that reduced them to the most influential 30% of features, and one that reduced them to the most influential 10% of features.
 
@@ -218,9 +218,9 @@ Several training and testing sets were created: one that simply lacked the colum
 
 I first calculated the metrics of a naive predictor - which assumed a loan was always repaid - and which any algorithm I chose would need to perform better than.  This naive predictor has an accuracy score of 0.6912, an F1-score of 0.8174, a precision score of 0.6912, and a recall score of 1.
 
-I then borrowed a testing and training pipeline from a previous Udacity project, which systematically takes each algorithm, trains it on 1%, 10%, and 100% of the data, evaluates the results on a subportion of the testing set, and gives benchmark speed and accuracy metrics for my algorithms of choice (prior to any fine-tuning).
+I then borrowed a testing and training pipeline from a previous Udacity project, which systematically takes each algorithm, trains it on 1%, 10%, and 100% of the data, evaluates the results on a sub-portion of the testing set, and gives benchmark speed and accuracy metrics for my algorithms of choice (prior to any fine-tuning).
 
-Overall, the AdaBoost and XGBoost algorithms appeared to consistently perform better than the Random Forest and Logistic Regression algorithms.  AdaBoost was generally faster than XGBoost, and on the full dataset (minus features with missing values), seemed to strike a good balance between speed, high precision on the test set (~77%), high recall (~84%), and a relatively high F1-score (~81%).  As both of these algorithms are well-suited to the problem, I use AdaBoost given its faster performance and slight advantage on relevant metrics.
+Overall, the AdaBoost and XGBoost algorithms appeared to consistently perform better than the Random Forest and Logistic Regression algorithms.  AdaBoost was generally faster than XGBoost, and on the full dataset (minus features with missing values), seemed to strike a good balance between speed, high precision on the test set (\~77%), high recall (\~84%), and a relatively high F1-score (\~81%).  As both of these algorithms are well-suited to the problem, I use AdaBoost given its faster performance and slight advantage on relevant metrics.
 
 ### Refinement
 <!--In this section, you will need to discuss the process of improvement you made upon the algorithms and techniques you used in your implementation. For example, adjusting parameters for certain models to acquire improved solutions would fall under the refinement category. Your initial and final solutions should be reported, as well as any significant intermediate results as necessary. Questions to ask yourself when writing this section:
@@ -278,9 +278,9 @@ The results are stronger, but only marginally so.  Ideally, I would like to work
 - _Is the visualization thoroughly analyzed and discussed?_
 - _If a plot is provided, are the axes, title, and datum clearly defined?_-->
 
-![Loan Status by Prosper Rating](success.png)
+![Loan Status by Prosper Rating][image-5]
 
-Although I believe that predicting loan default, from the lender's point of view, is a very important goal, as can be seen in the plot, it is clear that Prosper are already able to predict, within some margin of error, whether a loan will default or not.  Although it is problematic that up to ~7% of the highest-rated loans default, it is nevertheless clear that these ratings are quite informative about the likelihood of a loan being charged off in the end.
+Although I believe that predicting loan default, from the lender's point of view, is a very important goal, as can be seen in the plot, it is clear that Prosper are already able to predict, within some margin of error, whether a loan will default or not.  Although it is problematic that up to \~7% of the highest-rated loans default, it is nevertheless clear that these ratings are quite informative about the likelihood of a loan being charged off in the end.
 
 ### Reflection
 <!--In this section, you will summarize the entire end-to-end problem solution and discuss one or two particular aspects of the project you found interesting or difficult. You are expected to reflect on the project as a whole to show that you have a firm understanding of the entire process employed in your work. Questions to ask yourself when writing this section:
@@ -298,12 +298,12 @@ Overall, throughout this project, I took a previously cleaned and explored datas
 - _Were there algorithms or techniques you researched that you did not know how to implement, but would consider using if you knew how?_
 - _If you used your final solution as the new benchmark, do you think an even better solution exists?_-->
 
-I believe, first of all, that this model could be improved through consulting more closely those models that were in the past successful in predicting credit trustworthiness, and implementing those features of the models used that made them successful, to the degree possible.  Second, I would like to work at optimizing more than one model, in order to have a better line of coparison than that between several unoptimized models.  Finally, I would like to build a Deep Neural Network model to see if it improves classification performance on this dataset.  I would also like to use any models I come up with on similar datasets, to see if their performance generalizes.
+I believe, first of all, that this model could be improved through consulting more closely those models that were in the past successful in predicting credit trustworthiness, and implementing those features of the models used that made them successful, to the degree possible.  Second, I would like to work at optimizing more than one model, in order to have a better line of comparison than that between several unoptimized models.  Finally, I would like to build a Deep Neural Network model to see if it improves classification performance on this dataset.  I would also like to use any models I come up with on similar datasets, to see if their performance generalizes.
 
-Second, during my initial exploratory analysis, I found that Prosper systematically overestimated how much money lenders were likely to earn from a given loan.  In the future, I would also like to attempt a regression analysis that can perhaps predict, with greater accuracy, how much a lender stands to gain or lowe from a given loan.
+Second, during my initial exploratory analysis, I found that Prosper systematically overestimated how much money lenders were likely to earn from a given loan.  In the future, I would also like to attempt a regression analysis that can perhaps predict, with greater accuracy, how much a lender stands to gain or lose from a given loan.
 
 
------------
+---- 
 
 <!--**Before submitting, ask yourself. . .**
 
@@ -315,3 +315,8 @@ Second, during my initial exploratory analysis, I found that Prosper systematica
 - Is the code that implements your solution easily readable and properly commented?
 - Does the code execute without error and produce results similar to those reported?-->
 
+[image-1]:	loanstatus.png
+[image-2]:	incomerange.png
+[image-3]:	employmentstatus.png
+[image-4]:	employmentstatus2.png
+[image-5]:	success.png

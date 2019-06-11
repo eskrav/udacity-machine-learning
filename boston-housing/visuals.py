@@ -11,9 +11,9 @@ get_ipython().run_line_magic('matplotlib', 'inline')
 
 import matplotlib.pyplot as pl
 import numpy as np
-import sklearn.learning_curve as curves
+from sklearn.model_selection import learning_curve as curves
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.cross_validation import ShuffleSplit, train_test_split
+from sklearn.model_selection import ShuffleSplit, train_test_split
 
 def ModelLearning(X, y):
     """ Calculates the performance of several models with varying sizes of training data.

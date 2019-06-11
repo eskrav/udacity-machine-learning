@@ -11800,13 +11800,13 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import libraries necessary for this project</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="k">import</span> <span class="n">ShuffleSplit</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">ShuffleSplit</span>
 
 <span class="c1"># Import supplementary visualizations code visuals.py</span>
 <span class="kn">import</span> <span class="nn">visuals</span> <span class="k">as</span> <span class="nn">vs</span>
@@ -11874,7 +11874,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Minimum price of the data</span>
@@ -11955,9 +11955,10 @@ Standard deviation of prices: $165,171.13
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: Intuitively, I would expect an increase in the average number of rooms (<code>RM</code>) to increase the value of <code>MEDV</code>, given that more rooms, on average, indicate larger houses and properties, which typically to cost more, all things being equal.</strong></p>
+<p><div class="mark">
+<strong>ANSWER: Intuitively, I would expect an increase in the average number of rooms (<code>RM</code>) to increase the value of <code>MEDV</code>, given that more rooms, on average, indicate larger houses and properties, which typically to cost more, all things being equal.</strong></p>
 <p><strong>I would expect an increase in the percentage of homeowners considered "lower class" (<code>LSTAT</code>) to decrease the value of <code>MEDV</code>, given that poorer (lower class) homeowners tend to own less expensive houses -- and more expensive houses and properties, furthermore, tend to cluster together in the same neighborhoods.</strong></p>
-<p><strong>I would expect that an increase in the ratio of students to teachers in schools (<code>PTRATIO</code>) to decrease the value of <code>MEDV</code>, as good schools tend to have smaller student to teacher ratios, and schools are typically good if they are adequately funded by local property taxes, which would indicate richer neighborhoods (with richer people tending to buy more expensive housing).</strong></p>
+<p><strong>I would expect that an increase in the ratio of students to teachers in schools (<code>PTRATIO</code>) to decrease the value of <code>MEDV</code>, as good schools tend to have smaller student to teacher ratios, and schools are typically good if they are adequately funded by local property taxes, which would indicate richer neighborhoods (with richer people tending to buy more expensive housing).</strong>&lt;/div&gt;<i class="fa fa-lightbulb-o "></i></p>
 
 </div>
 </div>
@@ -12105,7 +12106,8 @@ Standard deviation of prices: $165,171.13
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: I would consider this model to have successfully captured the variation in the target variable.  An $R^2$ of 0.936 is quite high (very close to 1, the maximum value), and indicates that 93.6% of the variance in the true value is successfully predicted by this model, with very little error.</strong></p>
+<p><div class="mark">
+**ANSWER: I would consider this model to have successfully captured the variation in the target variable.  An $R^2$ of 0.936 is quite high (very close to 1, the maximum value), and indicates that 93.6% of the variance in the true value is successfully predicted by this model, with very little error.**</div><i class="fa fa-lightbulb-o "></i></p>
 
 </div>
 </div>
@@ -12182,7 +12184,8 @@ Standard deviation of prices: $165,171.13
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: The benefit of splitting a dataset into training and testing subsets is generally that it prevents overfitting: if the data perfectly fits the training set, but performs poorly on the test set, then it is too sensitive to random fluctuations in the training data, and generalizes poorly to the test data (and, most likely, other similar data).</strong></p>
+<p><div class="mark">
+**ANSWER: The benefit of splitting a dataset into training and testing subsets is generally that it prevents overfitting: if the data perfectly fits the training set, but performs poorly on the test set, then it is too sensitive to random fluctuations in the training data, and generalizes poorly to the test data (and, most likely, other similar data).**</div><i class="fa fa-lightbulb-o "></i></p>
 
 </div>
 </div>
@@ -13262,7 +13265,8 @@ Think about the pros and cons of adding more training points based on if the tra
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: Overall, the graph at <code>max_depth = 3</code>, which has a maximum depth of 3, appears to be converging at a fairly high score as more training points are added.  Initially, the training score decreases slightly.  The testing score, at first, sharply increases, and then continues to increase gradually until it coverges on a score close to 0.8.  As both scores, for all maximum depths, appear to have converged at their respecive values well before the maximum number of training points plotted above, it does not appear that more training points would significnatly benefit the model.</strong></p>
+<p><div class="mark">
+**ANSWER: Overall, the graph at `max_depth = 3`, which has a maximum depth of 3, appears to be converging at a fairly high score as more training points are added.  Initially, the training score decreases slightly.  The testing score, at first, sharply increases, and then continues to increase gradually until it coverges on a score close to 0.8.  As both scores, for all maximum depths, appear to have converged at their respecive values well before the maximum number of training points plotted above, it does not appear that more training points would significnatly benefit the model.**</div><i class="fa fa-lightbulb-o "></i></p>
 
 </div>
 </div>
@@ -13717,7 +13721,8 @@ AAAAAElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: At a maximum depth of 1, the model suffers from high bias, as can be seen in the low training score (just above 0.4).  When the model is trained with a maximum depth of 10, it suffers from high variance: the training score is very high, close to 1.0, indicaing that it is modeling the training data very well.  However, the validation score is fairly low (around 6.5-7), and is in fact decreasing as maximum depth increases, suggesting that the model is too sensitive to random fluctuations in the training data, and is modeling the test data poorly as a result.</strong></p>
+<p><div class="mark">
+**ANSWER: At a maximum depth of 1, the model suffers from high bias, as can be seen in the low training score (just above 0.4).  When the model is trained with a maximum depth of 10, it suffers from high variance: the training score is very high, close to 1.0, indicaing that it is modeling the training data very well.  However, the validation score is fairly low (around 6.5-7), and is in fact decreasing as maximum depth increases, suggesting that the model is too sensitive to random fluctuations in the training data, and is modeling the test data poorly as a result.**</div><i class="fa fa-lightbulb-o "></i></p>
 
 </div>
 </div>
@@ -13739,7 +13744,8 @@ AAAAAElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: The optimal maximum depth appears to be about 3 (or slightly higher).  In the graph above, it can be seen that after that point, while the training score continues to rise, the validation score stays stable, and then begins to decrease after a maximum depth of 4.  This suggests that after a maximum depth of about 3, the model is overfitting the training data.</strong></p>
+<p><div class="mark">
+**ANSWER: The optimal maximum depth appears to be about 3 (or slightly higher).  In the graph above, it can be seen that after that point, while the training score continues to rise, the validation score stays stable, and then begins to decrease after a maximum depth of 4.  This suggests that after a maximum depth of about 3, the model is overfitting the training data.**</div><i class="fa fa-lightbulb-o "></i></p>
 
 </div>
 </div>
@@ -13771,7 +13777,8 @@ AAAAAElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: The Grid Search technique goes through a set of pre-specified parameters for fitting a particular machine learning algorithm, fitting a model with each combination of parameters to a given set of data.  The technique returns the parameters which maximize/optimize the (pre-specified) performance metric.  For example, the technique may be used to obtimize the optimal maximum depth of a decision tree model, or the optimum gamma value for a particular SVM kernel.</strong></p>
+<p><div class="mark">
+**ANSWER: The Grid Search technique goes through a set of pre-specified parameters for fitting a particular machine learning algorithm, fitting a model with each combination of parameters to a given set of data.  The technique returns the parameters which maximize/optimize the (pre-specified) performance metric.  For example, the technique may be used to obtimize the optimal maximum depth of a decision tree model, or the optimum gamma value for a particular SVM kernel.**</div><i class="fa fa-lightbulb-o "></i></p>
 
 </div>
 </div>
@@ -13796,8 +13803,9 @@ AAAAAElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: In k-fold cross-validation, the data is split into <code>k</code> subsets.  The model is then fit <code>k</code> times, with each subset being used once as the test subset, with the rest being used together as training data.  In the end, the technique returns the average error across the <code>k</code> trials.</strong></p>
-<p><strong>The benefit this technique provides for grid search is that it makes it more likely that the success of a particular set of parameters is not due to the particular choice or idiosyncracies of the test and training sets, in part because each data point is then included in the test (or training) data.  Further, it is particularly useful for small datasets, as it increases the amount of data that can be used for test or training.</strong></p>
+<p><div class="mark">
+<strong>ANSWER: In k-fold cross-validation, the data is split into <code>k</code> subsets.  The model is then fit <code>k</code> times, with each subset being used once as the test subset, with the rest being used together as training data.  In the end, the technique returns the average error across the <code>k</code> trials.</strong></p>
+<p><strong>The benefit this technique provides for grid search is that it makes it more likely that the success of a particular set of parameters is not due to the particular choice or idiosyncracies of the test and training sets, in part because each data point is then included in the test (or training) data.  Further, it is particularly useful for small datasets, as it increases the amount of data that can be used for test or training.</strong>&lt;/div&gt;<i class="fa fa-lightbulb-o "></i></p>
 
 </div>
 </div>
@@ -13937,7 +13945,16 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong> Hint: </strong> The answer comes from the output of the code snipped above.</p>
-<p><strong>Answer: The optimal model has max_depth of 4, which closely corresponds to my guess in Question 6.  Judging from the graph, there is no penalty going from 3 to 4 by way of validation score, but the model performs slightly better on the training set at a maximum depth of 4.</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><div class="mark">
+**ANSWER: The optimal model has max_depth of 4, which closely corresponds to my guess in Question 6.  Judging from the graph, there is no penalty going from 3 to 4 by way of validation score, but the model performs slightly better on the training set at a maximum depth of 4.**</div><i class="fa fa-lightbulb-o "></i></p>
 
 </div>
 </div>
@@ -14030,8 +14047,9 @@ Predicted selling price for Client 3&#39;s home: $931,636.36
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: I would recommend that Client 1 sell their home at just over \$400,000, that Client 2 sell their home at just over \$235,000, and that Client 3 sell their home at just over \$930,000.</strong></p>
-<p><strong>These prices, relative to one another, appear to make sense: the client with the most expensive house has the most rooms, the lowest poverty level, and the lowest nearby student-to-teacher ratio.  The client with the least expensive house, in contrast, has the fewest rooms, the highest neighborhood poverty level, and also the highest nearty student-to-teacher ratio.</strong></p>
+<p><div class="mark">
+<strong>ANSWER: I would recommend that Client 1 sell their home at just over \$400,000, that Client 2 sell their home at just over \$235,000, and that Client 3 sell their home at just over \$930,000.</strong></p>
+<p><strong>These prices, relative to one another, appear to make sense: the client with the most expensive house has the most rooms, the lowest poverty level, and the lowest nearby student-to-teacher ratio.  The client with the least expensive house, in contrast, has the fewest rooms, the highest neighborhood poverty level, and also the highest nearty student-to-teacher ratio.</strong>&lt;/div&gt;<i class="fa fa-lightbulb-o "></i></p>
 
 </div>
 </div>
@@ -14111,10 +14129,11 @@ Range in prices: $28,652.84
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: It's unclear how applicable this model would be today, or in general.  The predicted prices are all within about $30,000 of each other (roughly 5-10% of the predicted selling price of the optimized model), which may be an acceptable margin of error with respect to the model itself.  Assuming this is an acceptable margin of error, then, the model itself makes fairly consistent predictions.</strong></p>
+<p><div class="mark">
+<strong>ANSWER: It's unclear how applicable this model would be today, or in general.  The predicted prices are all within about $30,000 of each other (roughly 5-10% of the predicted selling price of the optimized model), which may be an acceptable margin of error with respect to the model itself.  Assuming this is an acceptable margin of error, then, the model itself makes fairly consistent predictions.</strong></p>
 <p><strong>However, it's unclear how relevant data collected in 1978 is.  It is possible to adjust these prices for inflation, which however would also increase the magnitude of the margin of error in current-day dollars.  More problematically, many neighborhoods would be expected to have changed significantly since that time, and in the Boston area specifically, <a href="http://www.governing.com/gov-data/boston-gentrification-maps-demographic-data.html">many neighborhoods have become increasingly gentrified</a> (i.e., formerly poor neighborhoods may no longer be so, as cities become more attractive places to live).  Changes in local transportation may have likewise altered how attractive a particular neighborhood is, as a place to live.</strong></p>
 <p><strong>Second, the features present in the data are likely not sufficient to describe a particular home.  It is common to find some variety in property sizes, or old a house is, in any given neighborhood, which would affect its selling price.  New or high-quality appliances in the home, recent renovations, the presence of a basement or attic, a larger property area, the presence of a pool, or proximity to public transportation and attractions, would likely increase the selling price.</strong></p>
-<p><strong>I would expect that most of the predictors would also be applicable in a rural setting.  The number of rooms and social class of the neighborhood should apply similarly, though the degree to which they would (e.g., by how much exactly an extra room might increase selling price) might vary.  However, I would expect the student to teacher ratio to be less predictive in rural areas.  In urban areas, a low student to teacher ratio often reflects more school funds, and greater property taxes.  In contrast, in rural areas, it might simply reflect low population density.  I would, however, expect this model to be reasonably applicable in other urban areas similar to Boston.</strong></p>
+<p><strong>I would expect that most of the predictors would also be applicable in a rural setting.  The number of rooms and social class of the neighborhood should apply similarly, though the degree to which they would (e.g., by how much exactly an extra room might increase selling price) might vary.  However, I would expect the student to teacher ratio to be less predictive in rural areas.  In urban areas, a low student to teacher ratio often reflects more school funds, and greater property taxes.  In contrast, in rural areas, it might simply reflect low population density.  I would, however, expect this model to be reasonably applicable in other urban areas similar to Boston.</strong>&lt;/div&gt;<i class="fa fa-lightbulb-o "></i></p>
 
 </div>
 </div>
