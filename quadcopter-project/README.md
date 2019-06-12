@@ -1,35 +1,24 @@
-# Deep RL Quadcopter Controller
+# Machine Learning Engineer Nanodegree
+# Reinforcement Learning
+## Project: Train a Quadcopter How to Fly
 
-*Teach a Quadcopter How to Fly!*
+### Summary
 
-In this project, you will design an agent to fly a quadcopter, and then train it using a reinforcement learning algorithm of your choice! 
+In this project, I used reinforcement learning to (partially successfully) teach a quadcopter how to hover in place, by programming the task, designing the reward function, and modifying the DDPG learning algorithm.
 
-## Project Instructions
+The Jupyter notebook for this project can be found [here](./Quadcopter_Project.ipynb), while the html export of this notebook can be found [here](https://eskrav.github.io/udacity-machine-learning/quadcopter-project
+/Quadcopter_Project.html).
 
-1. Clone the repository and navigate to the downloaded folder.
+### Install
 
-```
-git clone https://github.com/udacity/RL-Quadcopter-2.git
-cd RL-Quadcopter-2
-```
+This project requires **Python** and the following Python libraries installed:
 
-2. Create and activate a new environment.
+- [NumPy](http://www.numpy.org/)
+- [Pandas](http://pandas.pydata.org/)
+- [matplotlib](http://matplotlib.org/)
+- [keras](http://scikit-learn.org/stable/)
+- [keras](https://keras.io/)
 
-```
-conda create -n quadcop python=3.6 matplotlib numpy pandas
-source activate quadcop
-```
+You will also need to have software installed to run and execute a [Jupyter Notebook](http://ipython.org/notebook.html)
 
-3. Create an [IPython kernel](http://ipython.readthedocs.io/en/stable/install/kernel_install.html) for the `quadcop` environment. 
-```
-python -m ipykernel install --user --name quadcop --display-name "quadcop"
-```
-
-4. Open the notebook.
-```
-jupyter notebook Quadcopter_Project.ipynb
-```
-
-5. Before running code, change the kernel to match the `quadcop` environment by using the drop-down menu (**Kernel > Change kernel > quadcop**). Then, follow the instructions in the notebook.
-
-6. You will likely need to install more pip packages to complete this project.  Please curate the list of packages needed to run your project in the `requirements.txt` file in the repository.
+If you do not have Python installed yet, it is highly recommended that you install the [Anaconda](http://continuum.io/downloads) distribution of Python, which already has the above packages and more included.
