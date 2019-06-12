@@ -12575,6 +12575,15 @@ It is a ratio of true positives(words classified as spam, and which are actually
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="alert alert-block alert-success">
+<b>ANSWER:</b></div>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[39]:</div>
@@ -12661,23 +12670,43 @@ It is a ratio of true positives(words classified as spam, and which are actually
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: </strong></p>
-<p><strong>I picked two Ensemble methods commonly used for the task of classification (see e.g. <a href="http://scikit-learn.org/stable/tutorial/machine_learning_map/index.html">http://scikit-learn.org/stable/tutorial/machine_learning_map/index.html</a>) - one averaging method, and one boosting method.  I did not pick KNN, as it is relatively difficult to pick the right respective scales, especially for a mix of categorical and continuous variables (e.g., <a href="https://mathbabe.org/2013/04/04/k-nearest-neighbors-dangerously-simple/">https://mathbabe.org/2013/04/04/k-nearest-neighbors-dangerously-simple/</a>).  I also did not pick Naive Bayes, as it assumes feature independence, which is unlikely in the context of this data.  I wanted to use Logistic Regression, however, as having an output of probabilities allows for more flexibility after the fact, possibly based on other consideration, in deciding which probability threshold to use when determining whether to ask someone for donations.</strong></p>
-<p><strong>For strengths and weaknesses of the relevant models, I primarily consulted the following sources, keeping in mind that heuristics do not necessarily apply to each data set:</strong></p>
-<p><a href="https://medium.com/@randylaosat/machine-learning-whats-inside-the-box-861f5c7e72a3">https://medium.com/@randylaosat/machine-learning-whats-inside-the-box-861f5c7e72a3</a></p>
-<p><a href="https://medium.com/@vijaya.beeravalli/comparison-of-machine-learning-classification-models-for-credit-card-default-data-c3cf805c9a5a">https://medium.com/@vijaya.beeravalli/comparison-of-machine-learning-classification-models-for-credit-card-default-data-c3cf805c9a5a</a></p>
-<p><a href="https://www.dummies.com/programming/big-data/data-science/machine-learning-dummies-cheat-sheet/">https://www.dummies.com/programming/big-data/data-science/machine-learning-dummies-cheat-sheet/</a></p>
-<p><a href="https://hackernoon.com/boosting-algorithms-adaboost-gradient-boosting-and-xgboost-f74991cad38c">https://hackernoon.com/boosting-algorithms-adaboost-gradient-boosting-and-xgboost-f74991cad38c</a></p>
-<p><strong>I crossed-checked specific information above with other sources to ensure that it was generally accepted.</strong></p>
-<h4 id="Ensemble-Methods:-Random-Forest">Ensemble Methods: Random Forest<a class="anchor-link" href="#Ensemble-Methods:-Random-Forest">&#182;</a></h4><p><strong>RF algorithms may for example be applied to the task of determining which medication would be most suitable to a patient, based on predictors such as gender, diagnosis, disease duration/progression, weight, and so forth.</strong></p>
-<p><strong>The strengths of this model are the following: it natively handles categorical variables; it is less prone to overfitting than a single decision tree -- therefore, it is more likely to select relevant features; and it frequently outperforms other methods on accuracy.  These features in particular make this model a good candidate for this problem, which has numerous categorical variables (as well as continuous).  Given that after one-hot conversion, there were 103 total features, a model which will automatically select the most important features is of particular importance.  Additionally, it can handle missing and imbalanced data, and is a flexible algorithm that does not require lots of parameter tuning.</strong></p>
-<p><strong>The weaknesses of this model are that it won't perform well with a bad set of features; it's not very transparent, and it's hard to interpret what's going on in the algorithm; further, too many trees can slow down the algorithm.</strong></p>
-<h4 id="Ensemble-Methods:-AdaBoost">Ensemble Methods: AdaBoost<a class="anchor-link" href="#Ensemble-Methods:-AdaBoost">&#182;</a></h4><p><strong>AdaBoost is an adaptive algorithm used for facial recognition systems.  It is particularly well-suited for boosting the performance of decision trees on binary classification tasks.  It typically does not overfit despite excellent accuracy (although it is to date unclear exactly how), and frequently outperforms other methods.  These features make it a good model to attempt for this problem, given that the algorithm can be used to boost the performance of classifiers that work well natively with categorical data, such as decision trees, and like RF will automatically select those features that are most important.  It additionally handles missing variables (although this does not seem to be a particular problem with this dataset), and does not require variable transformation, and has relatively few parameters that need tweaking.</strong></p>
-<p><strong>The weaknesses of this model are that it does not deal well with noisy data, and the efficiency of the algorithm is affected by outliers, since the algorithm attempts to fit each point.</strong></p>
-<h4 id="Logistic-Regression">Logistic Regression<a class="anchor-link" href="#Logistic-Regression">&#182;</a></h4><p><strong>In medicine, logistic regression may be used for tasks such as determining which factors within a population do, or do not lead, to increased likelihood of a specific health event, such as a heart attack.</strong></p>
-<p><strong>The strengths of this model are that it's fairly easy to interpret in terms of probabilities; relatively unlikely to overfit; fast; well-suited for binary classification tasks; and explanatory variables can be continuous or categorical.  These features, and in particular the fact that results are probabilities, make this model a good candidate for this problem, since probabilities allow for post-hoc adjustment of the threshold for who should or should not be sent a donation request (e.g., depending on the budget, one may be able to send out requests to more people, even if some are less likely to donate)</strong>.</p>
-<p><strong>The downsides of this model are that it's not particularly good at capturing complex or non-linear relationships between features, or dealing with multiple/non-linear decision boundaries; generally, it's not very flexible.</strong></p>
+<div class="alert alert-block alert-success">
+<b>ANSWER: I picked two Ensemble methods commonly used for the task of classification (see e.g. http://scikit-learn.org/stable/tutorial/machine_learning_map/index.html) - one averaging method, and one boosting method.  I did not pick KNN, as it is relatively difficult to pick the right respective scales, especially for a mix of categorical and continuous variables (e.g., https://mathbabe.org/2013/04/04/k-nearest-neighbors-dangerously-simple/).  I also did not pick Naive Bayes, as it assumes feature independence, which is unlikely in the context of this data.  I wanted to use Logistic Regression, however, as having an output of probabilities allows for more flexibility after the fact, possibly based on other consideration, in deciding which probability threshold to use when determining whether to ask someone for donations.</b><br><br>
 
+<b>For strengths and weaknesses of the relevant models, I primarily consulted the following sources, keeping in mind that heuristics do not necessarily apply to each data set:</b><br><br>
+
+https://medium.com/@randylaosat/machine-learning-whats-inside-the-box-861f5c7e72a3<br><br>
+
+https://medium.com/@vijaya.beeravalli/comparison-of-machine-learning-classification-models-for-credit-card-default-data-c3cf805c9a5a<br><br>
+
+https://www.dummies.com/programming/big-data/data-science/machine-learning-dummies-cheat-sheet/<br><br>
+
+https://hackernoon.com/boosting-algorithms-adaboost-gradient-boosting-and-xgboost-f74991cad38c<br><br>
+
+<b>I crossed-checked specific information above with other sources to ensure that it was generally accepted.</b><br><br>
+
+<header><h4><font size="3">Ensemble Methods: Random Forest</font></h4></header><br>
+
+<b>RF algorithms may for example be applied to the task of determining which medication would be most suitable to a patient, based on predictors such as gender, diagnosis, disease duration/progression, weight, and so forth.</b><br><br>
+
+<b>The strengths of this model are the following: it natively handles categorical variables; it is less prone to overfitting than a single decision tree -- therefore, it is more likely to select relevant features; and it frequently outperforms other methods on accuracy.  These features in particular make this model a good candidate for this problem, which has numerous categorical variables (as well as continuous).  Given that after one-hot conversion, there were 103 total features, a model which will automatically select the most important features is of particular importance.  Additionally, it can handle missing and imbalanced data, and is a flexible algorithm that does not require lots of parameter tuning.</b><br><br>
+
+<b>The weaknesses of this model are that it won't perform well with a bad set of features; it's not very transparent, and it's hard to interpret what's going on in the algorithm; further, too many trees can slow down the algorithm.</b><br><br>
+
+<header><h4><font size="3">Ensemble Methods: AdaBoost</font></h4></header><br>
+
+<b>AdaBoost is an adaptive algorithm used for facial recognition systems.  It is particularly well-suited for boosting the performance of decision trees on binary classification tasks.  It typically does not overfit despite excellent accuracy (although it is to date unclear exactly how), and frequently outperforms other methods.  These features make it a good model to attempt for this problem, given that the algorithm can be used to boost the performance of classifiers that work well natively with categorical data, such as decision trees, and like RF will automatically select those features that are most important.  It additionally handles missing variables (although this does not seem to be a particular problem with this dataset), and does not require variable transformation, and has relatively few parameters that need tweaking.</b><br><br>
+
+<b>The weaknesses of this model are that it does not deal well with noisy data, and the efficiency of the algorithm is affected by outliers, since the algorithm attempts to fit each point.</b><br><br>
+
+<header><h4><font size="3">Logistic Regression</font></h4></header><br>
+
+<b>In medicine, logistic regression may be used for tasks such as determining which factors within a population do, or do not lead, to increased likelihood of a specific health event, such as a heart attack.</b><br><br>
+
+<b>The strengths of this model are that it's fairly easy to interpret in terms of probabilities; relatively unlikely to overfit; fast; well-suited for binary classification tasks; and explanatory variables can be continuous or categorical.  These features, and in particular the fact that results are probabilities, make this model a good candidate for this problem, since probabilities allow for post-hoc adjustment of the threshold for who should or should not be sent a donation request (e.g., depending on the budget, one may be able to send out requests to more people, even if some are less likely to donate).</b><br><br>
+
+<b>The downsides of this model are that it's not particularly good at capturing complex or non-linear relationships between features, or dealing with multiple/non-linear decision boundaries; generally, it's not very flexible.</b>
+</div>
 </div>
 </div>
 </div>
@@ -12902,8 +12931,8 @@ Look at the graph at the bottom left from the cell above(the visualization creat
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: The model performance plotted above suggests that AdaBoost is the best-suited algorithm.  All models were reasonably fast, although AdaBoost was slowest of the three.  The RF classifier appears prone to overfitting this data, while AdaBoost had the best performance (by a relatively small margin) on the test data, judging by accuracy and F-score.  All algorithms appear roughly equally well-suited to the data, with individual strengths (e.g., if it was important to get results in terms of probabilities, I would likely use Logistic Regression).  In practice, I would likely try fine-tuning at least two, or all three methods, and compare final performance.  In this case, I will use AdaBoost given its superior performance on metrics, given the testing set.</strong></p>
-
+<div class="alert alert-block alert-success">
+<b>ANSWER: The model performance plotted above suggests that AdaBoost is the best-suited algorithm.  All models were reasonably fast, although AdaBoost was slowest of the three.  The RF classifier appears prone to overfitting this data, while AdaBoost had the best performance (by a relatively small margin) on the test data, judging by accuracy and F-score.  All algorithms appear roughly equally well-suited to the data, with individual strengths (e.g., if it was important to get results in terms of probabilities, I would likely use Logistic Regression).  In practice, I would likely try fine-tuning at least two, or all three methods, and compare final performance.  In this case, I will use AdaBoost given its superior performance on metrics, given the testing set.</b></div>
 </div>
 </div>
 </div>
@@ -12924,13 +12953,32 @@ Look at the graph at the bottom left from the cell above(the visualization creat
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: AdaBoost takes a family of weak classifiers, which may perform only slightly better than chance at correctly classifying any given point, combines them, and lets them 'vote' on the correct category of any given point.  When a large number of such weak classifiers vote on any given point, the chance that this point will be correctly classified increases significantly.  By default, AdaBoost uses decision tree classifiers to classify points, although it can use different base classifiers.  The process of classifying points continues either until each point is correctly classified in a labeled data set, or until the maximum number of iterations specified is reached.</strong></p>
-<p><strong>The image below illustrates this: a weak classifier in Box 1 classifies several of the positive points correctly, but misclassifies the rest of the positive points.  The weights of the misclassified samples are then increased, and the next weak classifier (Box 2) is more likely to classify these points correctly.  The weights of misclassified samples is increased again, and the process repeats.  In the end, the weak classifiers are combined, and 'vote' on the category a given point belongs to:</strong></p>
-<p><img src="image.png" alt="Image"></p>
-<p><strong>The drawback of this method, as mentioned, is that it does not deal well with noisy data, given that it attempts to categorize all points correctly.  It is not, however, prone to overfitting.</strong></p>
-<p>Resources:</p>
-<p><a href="https://hackernoon.com/boosting-algorithms-adaboost-gradient-boosting-and-xgboost-f74991cad38c">https://hackernoon.com/boosting-algorithms-adaboost-gradient-boosting-and-xgboost-f74991cad38c</a> (image copied from this resource)</p>
+<div class="alert alert-block alert-success">
+<b>ANSWER: AdaBoost takes a family of weak classifiers, which may perform only slightly better than chance at correctly classifying any given point, combines them, and lets them 'vote' on the correct category of any given point.  When a large number of such weak classifiers vote on any given point, the chance that this point will be correctly classified increases significantly.  By default, AdaBoost uses decision tree classifiers to classify points, although it can use different base classifiers.  The process of classifying points continues either until each point is correctly classified in a labeled data set, or until the maximum number of iterations specified is reached.</b><br><br>
 
+<b>The image below illustrates this: a weak classifier in Box 1 classifies several of the positive points correctly, but misclassifies the rest of the positive points.  The weights of the misclassified samples are then increased, and the next weak classifier (Box 2) is more likely to classify these points correctly.  The weights of misclassified samples is increased again, and the process repeats.  In the end, the weak classifiers are combined, and 'vote' on the category a given point belongs to:</b></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="image.png" alt="Image"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="alert alert-block alert-success">
+<b>The drawback of this method, as mentioned, is that it does not deal well with noisy data, given that it attempts to categorize all points correctly.  It is not, however, prone to overfitting.</b><br><br>
+
+Resources:<br><br>
+
+https://hackernoon.com/boosting-algorithms-adaboost-gradient-boosting-and-xgboost-f74991cad38c (image copied from this resource)</div>
 </div>
 </div>
 </div>
@@ -13306,8 +13354,8 @@ Final F-score on the testing data: 0.7448
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: Both models are vast improvements on the performance of the naive predictor (accuracy score: 0.2478, F-score: 0.2917).  The optimized model offers a modest adantage on metrics (~1-2%) over the unoptimized model.  The model could likely be optimized further by trying additional base classifiers, and optimizing the parameters of the base AdaBoost classifier, but that is left for future work.</strong></p>
-
+<div class="alert alert-block alert-success">
+<b>ANSWER: Both models are vast improvements on the performance of the naive predictor (accuracy score: 0.2478, F-score: 0.2917).  The optimized model offers a modest adantage on metrics (~1-2%) over the unoptimized model.  The model could likely be optimized further by trying additional base classifiers, and optimizing the parameters of the base AdaBoost classifier, but that is left for future work.  It is somewhat surprising that the learning rate that performs best is <code>1</code>, as typically lower learning rates are better.  I do not have a current answer for why this is (perhaps more interations are needed), but it should be explored further.</b></div>
 </div>
 </div>
 </div>
@@ -13335,16 +13383,19 @@ Final F-score on the testing data: 0.7448
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: The most important features are likely to be:</strong></p>
-<ul>
-<li><strong>Age (one typically earns more with age, up to a certain point, and is likely to have more in savings).</strong></li>
-<li><strong>Occupation (some professions systematically earn more)</strong></li>
-<li><strong>Education (more education generally correlates with higher income)</strong></li>
-<li><strong>Capital gains (greater capital gains likely correlate with high income)</strong></li>
-<li><strong>Work class (type of employment, or absence of gainful employment, etc.)</strong></li>
-</ul>
-<p><strong>I would rank these, given my current knowledge or intuition of what correlates best with wealth, as: capital gains &gt; occupation &gt; education &gt; work class &gt; age.</strong></p>
+<div class="alert alert-block alert-success">
+<b>Answer: The most important features are likely to be:</b><br>
 
+<ul>
+<li> <b>Age (one typically earns more with age, up to a certain point, and is likely to have more in savings).</b></li>
+<li> <b>Occupation (some professions systematically earn more)</b></li>
+<li> <b>Education (more education generally correlates with higher income)</b></li>
+<li> <b>Capital gains (greater capital gains likely correlate with high income)</b></li>
+<li> <b>Work class (type of employment, or absence of gainful employment, etc.)</b></li>
+</ul>
+<br>
+
+<b>I would rank these, given my current knowledge or intuition of what correlates best with wealth, as: capital gains > occupation > education > work class > age.</b></div>
 </div>
 </div>
 </div>
@@ -13426,8 +13477,8 @@ Final F-score on the testing data: 0.7448
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: Unsurprisingly, education, capital gain, and age, are all important features.  I am not surprised that capital gain is the most important feature, but I am surprised that occupation or amount of education is not more influential.  Hours per week worked makes sense, although I would have expected that occupation and work class (which are likely highly correlated with hours worked per week) are more relevant.</strong></p>
-
+<div class="alert alert-block alert-success">
+<b>ANSWER: Unsurprisingly, education, capital gain, and age, are all important features.  I am not surprised that capital gain is the most important feature, but I am surprised that occupation or amount of education is not more influential.  Hours per week worked makes sense, although I would have expected that occupation and work class (which are likely highly correlated with hours worked per week) are more relevant.</b></div>
 </div>
 </div>
 </div>
@@ -13514,8 +13565,8 @@ F-score on testing data: 0.7053
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: A model trained on reduced data performs noticeably worse than a model trained on the full data set.  I would consider these features in the future when gathering data for another dataset, if resources/computing time were limited, and if cutting out features improved performance, and/or if accuracy were not of paramount importance.</strong></p>
-
+<div class="alert alert-block alert-success">
+<b>ANSWER: A model trained on reduced data performs noticeably worse than a model trained on the full data set.  I would consider these features in the future when gathering data for another dataset, if resources/computing time were limited, and if cutting out features improved performance, and/or if accuracy were not of paramount importance.</b></div>
 </div>
 </div>
 </div>

@@ -12375,8 +12375,12 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: Sample[0] is likely a small grocery store, as they are purchasing a disproportionate amount of the following: delicatessen, detergents/paper, and grocery.  Sample[1] purchases a disproportionate amount of fresh and frozen items, with some milk and grocery items - this may be a cafe or small restaurant.  Sample[2] could be a market specializing in fresh produce or perhaps a restaurant - they purchase a very large amount of fresh ingredients, and relatively little of everything else.</strong></p>
+<div class="alert alert-block alert-success">
+<b>ANSWER: Sample[0] is likely a small grocery store, as they are purchasing a disproportionate amount of the following: delicatessen, detergents/paper, and grocery.</b><br><br>
 
+<b>Sample[1] purchases a disproportionate amount of fresh and frozen items, with some milk and grocery items - this may be a cafe or small restaurant.</b><br><br>
+
+<b>Sample[2] could be a market specializing in fresh produce or perhaps a restaurant - they purchase a very large amount of fresh ingredients, and relatively little of everything else.</b></div>
 </div>
 </div>
 </div>
@@ -12469,8 +12473,8 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: I attempted to predict customer purchase patterns through their purchase of items in the Frozen category.  The reporeted $R^2$ is -0.2101 - incdicating that other features do not predict easily from this feature.  This suggests that patterns in the Frozen category may make unique predictions not captured by other features.</strong></p>
-
+<div class="alert alert-block alert-success">
+<b>ANSWER: I attempted to predict customer purchase patterns through their purchase of items in the Frozen category.  The reported $R^2$ is -0.2101 - indicating that other features do not predict easily from this feature.  This suggests that patterns in the Frozen category may make unique predictions not captured by other features.</b></div>
 </div>
 </div>
 </div>
@@ -12550,8 +12554,8 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: The data is not normally distributed, and most of it is positively skewed, with long tails on the right.  The feature pairs which exhibit the highest degree of correlation are Grocery and Detergents/Paper, followed by Milk and Grocery, and Milk and Detergents/Paper.  The data for all of those features is heavily positively skewed, and will need to be scaled.</strong></p>
-
+<div class="alert alert-block alert-success">
+<b>ANSWER: The data is not normally distributed, and most of it is positively skewed, with long tails on the right.  The feature pairs which exhibit the highest degree of correlation are Grocery and Detergents/Paper, followed by Milk and Grocery, and Milk and Detergents/Paper.  The data for all of those features is heavily positively skewed, and will need to be scaled.</b></div>
 </div>
 </div>
 </div>
@@ -12733,7 +12737,23 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Observation">Observation<a class="anchor-link" href="#Observation">&#182;</a></h3><p>After applying a natural logarithm scaling to the data, the distribution of each feature should appear much more normal. For any pairs of features you may have identified earlier as being correlated, observe here whether that correlation is still present (and whether it is now stronger or weaker than before).</p>
-<p><strong>ANSWER: The correlation is still present for all three feature pairs, although it is weaker for the Grocery and Detergents/Paper pair.</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="alert alert-block alert-success">
+<b>ANSWER: The correlation is still present for all three feature pairs, although it is weaker for the Grocery and Detergents/Paper pair.</b></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Run the code below to see how the sample data has changed after having the natural logarithm applied to it.</p>
 
 </div>
@@ -13652,8 +13672,8 @@ Once you have performed this implementation, the dataset will be stored in the v
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: There are data points which are outliers for more than one feature: 65, 66, 75, 128, and 154.  Normally, I would examine the data points in more detail to determine why they were outliers, and if the data was indeed anomalous, or whether excluding it would remove more signal than noise.  Here, I have very little information about the sources of the various data points, so I cannot evaluate this.  To avoid cutting out all data numerically anomalous, I will cut out all data anomalous in more than one category.</strong></p>
-
+<div class="alert alert-block alert-success">
+<b>ANSWER: There are data points which are outliers for more than one feature: 65, 66, 75, 128, and 154.  Normally, I would examine all unusual data points in more detail to determine why they were outliers, and if the data was indeed anomalous, which would provide a hint as to whether excluding it would remove more signal than noise.  Here, I have very little information about the sources of the various data points, so I cannot evaluate this.  To avoid arbitrarily cutting out all data which is numerically anomalous, I will cut out all data anomalous in more than one category.</b></div>
 </div>
 </div>
 </div>
@@ -13743,14 +13763,16 @@ Once you have performed this implementation, the dataset will be stored in the v
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: The first and second principal component explain about 70% of the variance in the data.  The first four together explain about 93% of the variance.  Although they do not explain much of the positive in milk and grocery purchases</strong></p>
-<ul>
-<li><strong>The 1st dimension accounts for much of the negative variance in Detergents/Paper, and to a lesser degree Milk and Grocery.  It accounts for some negative variance in the Delicatessen feature, and some positive variance in Fresh and Frozen.  It explains about 44% of the total variance in the data.  Overall, it primarily represents decreased spending on Detergets/Paper, Milk, and Grocery.</strong></li>
-<li><strong>The 2nd dimension accounts for much of the negative variance in Fresh, Frozen, and Delicatessen, and a small amount of the negative variance in the remaining features.  It explains about 26% of the total variance in the data.  Overall, it primarily represents decreased spending in Fresh, Frozen, and Delicatessen.</strong></li>
-<li><strong>The 3rd dimension accounts for much of the negative and positive variance in Fresh and Delicatessen, respectively, and a smaller amount of positive and negative variance in Frozen and Detergents/Paper, respectively.  It explains about 12% of the total variance in the data.  Overall, it mainly represents decreased spending in Fresh, and increased spending in Frozen and Delicatessen (to a lesser extent, decreased spending in Detergents/Paper).</strong></li>
-<li><strong>The 4th dimension accounts for much of the positive and negative variance in Frozen and Delicatessen, respectively, and a smaller amount of negative and positive variance in Fresh and Detergents/Paper, respectively.  It explains about 10% of the total variance in the data.  Mainly, it represents increased spending in Frozen, and decreased spending in Delicatessen.</strong></li>
-</ul>
+<div class="alert alert-block alert-success">
+<b>ANSWER: The first and second principal component explain about 70% of the variance in the data.  The first four together explain about 93% of the variance.  However, they do not explain much of the positive variance in milk and grocery purchases</b><br>
 
+<ul>
+<li><b>The 1st dimension accounts for much of the negative variance in Detergents/Paper, and to a lesser degree Milk and Grocery.  It accounts for some negative variance in the Delicatessen feature, and some positive variance in Fresh and Frozen.  It explains about 44% of the total variance in the data.  Overall, it primarily represents decreased spending on Detergents/Paper, Milk, and Grocery.</b></li>
+<li><b>The 2nd dimension accounts for much of the negative variance in Fresh, Frozen, and Delicatessen, and a small amount of the negative variance in the remaining features.  It explains about 26% of the total variance in the data.  Overall, it primarily represents decreased spending in Fresh, Frozen, and Delicatessen.</b></li>
+<li><b>The 3rd dimension accounts for much of the negative and positive variance in Fresh and Delicatessen, respectively, and a smaller amount of positive and negative variance in Frozen and Detergents/Paper, respectively.  It explains about 12% of the total variance in the data.  Overall, it mainly represents decreased spending in Fresh, and increased spending in Frozen and Delicatessen (to a lesser extent, decreased spending in Detergents/Paper).</b></li>
+<li><b>The 4th dimension accounts for much of the positive and negative variance in Frozen and Delicatessen, respectively, and a smaller amount of negative and positive variance in Fresh and Detergents/Paper, respectively.  It explains about 10% of the total variance in the data.  Mainly, it represents increased spending in Frozen, and decreased spending in Delicatessen.</b></li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -14069,11 +14091,12 @@ Once you have performed this implementation, the dataset will be stored in the v
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER:</strong></p>
-<p><strong>The advantages of a K-Means clustering algorithm are faster runtimes, hard clustering, ease of interpretation and implementation, and suitability for high-dimensional data</strong></p>
-<p><strong>The advantages of a GMM algorithm are soft clustering, a lack of assumption that clusters will be geometrically distinct, and that it works well with features which are normally distributed</strong></p>
-<p><strong>The GMM algorithm appears more suited to the customer data, given that there are only two dimensions, and any possible clusters will not be distinct, with a great deal of continuinty between clusters.  In general, the cluster geometry and number of clusters are not known.</strong></p>
+<div class="alert alert-block alert-success">
+<b>ANSWER: The advantages of a K-Means clustering algorithm are faster runtimes, hard clustering, ease of interpretation and implementation, and suitability for high-dimensional data</b><br><br>
 
+<b>The advantages of a GMM algorithm are soft clustering, a lack of assumption that clusters will be geometrically distinct, and that it works well with features which are normally distributed</b><br><br>
+
+<b>The GMM algorithm appears more suited to the customer data, given that there are only two dimensions, and any possible clusters will not be distinct, with a great deal of continuinty between clusters.  In general, the cluster geometry and number of clusters are not known.</b></div>
 </div>
 </div>
 </div>
@@ -14174,15 +14197,17 @@ Once you have performed this implementation, the dataset will be stored in the v
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: The silhouette score is as follows for the following numbers of clusters:</strong></p>
-<ul>
-<li>2: <strong>0.4219</strong></li>
-<li>3: 0.4042</li>
-<li>4: 0.2933</li>
-<li>5: 0.3005</li>
-<li>6: 0.3261</li>
-</ul>
+<div class="alert alert-block alert-success">
+<b>ANSWER: The silhouette score is as follows for the following numbers of clusters:</b><br>
 
+<ul>
+    <li> 2: <b>0.4219</b></li>
+<li> 3: 0.4042</li>
+<li> 4: 0.2933</li>
+<li> 5: 0.3005</li>
+<li> 6: 0.3261</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -14350,8 +14375,8 @@ Once you have performed this implementation, the dataset will be stored in the v
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: Cluster 0 disproportionally purchases fresh and frozen produce, comparatively little milk and grocery, and fairly little by way of detergents/paper and delicatessen items.  This might correspond to a food retailer, which disproportionately deals in fresh and frozen produce.  Cluster 1 disproportionately purchases grocery items, milk, and detergents/paper, while still making hefty purchases of fresh produce and delicatessen items, but relatively few frozen items.  This would correspond more to the profile of a cafe, restaurant, or other eating establishment.</strong></p>
-
+<div class="alert alert-block alert-success">
+<b>ANSWER: Cluster 0 disproportionally purchases fresh and frozen produce, comparatively little milk and grocery, and fairly little by way of detergents/paper and delicatessen items.  This might correspond to a food retailer, which disproportionately deals in fresh and frozen produce.  Cluster 1 disproportionately purchases grocery items, milk, and detergents/paper, while still making hefty purchases of fresh produce and delicatessen items, but relatively few frozen items.  This would correspond more to the profile of a cafe, restaurant, or other eating establishment.</b></div>
 </div>
 </div>
 </div>
@@ -14407,8 +14432,8 @@ Sample point 2 predicted to be in Cluster 0
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: The predictions I originally made for the three sample points are broadly consistent with this clustering  - although point 1 was more difficult for me to categorize, as it seemed consistent with either a cafe, or a food retailer.</strong></p>
-
+<div class="alert alert-block alert-success">
+<b>ANSWER: The predictions I originally made for the three sample points are broadly consistent with this clustering  - although point 1 was more difficult for me to categorize, as it seemed consistent with either a cafe, or a food retailer.</b></div>
 </div>
 </div>
 </div>
@@ -14446,8 +14471,8 @@ Sample point 2 predicted to be in Cluster 0
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: Those customers that depend most on delivery of fresh produce are likely to be more inconvenienced by a decrease in available delivery days, as fresh produce spoils more rapidly than other products, including milk products.  Customers that depend most on non-perishable goods, such as paper/detergents, or whose preferred perishable goods have a longer shelf life, may be less negatively affected by such a change.  Therefore, cluster 0 may be more likely to react negatively to this change.  The company may be able to test this by making a small random selection of customers in both clusters, making the change for only some customers in those selections, and confirming whether the change causes any difficulty for either group, and/or more difficulty for one group than other.</strong></p>
-
+<div class="alert alert-block alert-success">
+<b>ANSWER: Those customers that depend most on delivery of fresh produce are likely to be more inconvenienced by a decrease in available delivery days, as fresh produce spoils more rapidly than other products, including milk products.  Customers that depend most on non-perishable goods, such as paper/detergents, or whose preferred perishable goods have a longer shelf life, may be less negatively affected by such a change.  Therefore, cluster 0 may be more likely to react negatively to this change.  The company may be able to test this by making a small random selection of customers in both clusters, making the change for only some customers in those selections, and confirming whether the change causes any difficulty for either group, and/or more difficulty for one group than another.</b></div>
 </div>
 </div>
 </div>
@@ -14468,8 +14493,8 @@ Sample point 2 predicted to be in Cluster 0
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: One way to label these new customers is to use the projected dollar amount features for these customers.  A supervised learner could then be trained on the cluster-labeled data, which could learn which features predict membership in either one cluster, or the other.  This model could then be used to predict cluster membership for the new customers.</strong></p>
-
+<div class="alert alert-block alert-success">
+<b>ANSWER: One way to label these new customers is to use the projected dollar amount features for these customers.  A supervised learner could then be trained on the cluster-labeled data, which could learn which features predict membership in either one cluster, or the other.  This model could then be used to predict cluster membership for the new customers.</b></div>
 </div>
 </div>
 </div>
@@ -14536,8 +14561,8 @@ Sample point 2 predicted to be in Cluster 0
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: The number of clusters I've chosen -- 2 -- matches the two labels of Retailer vs Hotel/Restaurant/Cafe.  These classifications would be broadly consistent with my previous definition of the customer segments.  The clustering algorithm produced a more categorical split, understandably, than the labeled data along these dimensions, but overall there are relatively few Retailers in the Eating Establishment category, and vice versa.  What is clear, however, is that the further away a given point is from the other cluster, the more unlikely it is that it belongs to the other cluster.</strong></p>
-
+<div class="alert alert-block alert-success">
+<b>ANSWER: The number of clusters I've chosen -- 2 -- matches the two labels of Retailer vs Hotel/Restaurant/Cafe.  These classifications would be broadly consistent with my previous definition of the customer segments.  The clustering algorithm produced a more categorical split, understandably, than the labeled data along these dimensions, but overall there are relatively few Retailers in the Eating Establishment category, and vice versa.  What is clear, however, is that the further away a given point is from the other cluster, the more unlikely it is that it belongs to the other cluster.</b></div>
 </div>
 </div>
 </div>

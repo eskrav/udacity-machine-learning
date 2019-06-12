@@ -12258,8 +12258,8 @@ The <code>predictions_0</code> function below will always predict that a passeng
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: If we predicted that none of the passengers survived, the prediction accuracy would be 61.62%.</strong></p>
-
+<div class="alert alert-block alert-success">
+<b>ANSWER: If we predicted that none of the passengers survived, the prediction accuracy would be 61.62%.</b></div>
 </div>
 </div>
 </div>
@@ -12395,8 +12395,8 @@ Fill in the missing code below so that the function will make this prediction.<b
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: If we predict that all women survived, and none of the men did, then the prediction accuracy is 78.68%.</strong></p>
-
+<div class="alert alert-block alert-success">
+<b>ANSWER: If we predict that all women survived, and none of the men did, then the prediction accuracy is 78.68%.</b></div>
 </div>
 </div>
 </div>
@@ -12533,8 +12533,8 @@ Fill in the missing code below so that the function will make this prediction.<b
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: If we predict that all women and men under the age of 10 survived, the prediction accuracy is 79.35%.</strong></p>
-
+<div class="alert alert-block alert-success">
+<b>ANSWER: If we predict that all women and men under the age of 10 survived, the prediction accuracy is 79.35%.</b></div>
 </div>
 </div>
 </div>
@@ -12685,11 +12685,14 @@ Make sure to keep track of the various features and conditions you tried before 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>ANSWER: Initially, I looked at survival by age and gender, which I already saw had a substantial, almost categorical effect on survival rates.  Given what I knew of the historical event, I also suspected that the socio-economic class of the passenger would have a substantial effect on survival rates, but first I checked that the number of family members on board (spouses/siblings, or parents/children) did not substantially change survival rates for either women or men, as a group.</strong></p>
-<p><strong>After breaking each gender down by class, I saw that generally, female passengers in the 1st and 2nd class survived (with some minor exceptions that did not seem to warrant adding an additional, and possibly spurious feature that would be unlikely to generalize to similar datasets).  For female passengers in the 3rd class, it appeared difficult to predict whether passengers survived or not, so I looked at survival rates by age and gender conditioned on whether the passengers had family members on board.  I saw that younger and older women who were not in the (roughly) 20/30-50 age range were noticeably more likely to survive if they did not have family members on board.</strong></p>
-<p><strong>In the case of male passengers, it was clear that in the 3rd class, passengers overwhelmingly died.  In the 2nd class, male passengers above the age of 10 likewise overwhelmingly died, and this did not appear to be substantially mediated by whether family members were on board.  In the 1st class, there was a much more variable outcome, with older male individuals over 40 much less likely to survive.  There appeared to be no clear or reliable influence of the presence of family members on board, in either group, on survival rates, and although inclusion of those features may have improved prediction accuracy marginally, this again may be unlikely to generalize to similar datasets.</strong></p>
-<p><strong>Overall, incorporating these features as described above (and in the code) results in an accuracy of 81.14% in predicting survival rates on the Titanic.</strong></p>
+<div class="alert alert-block alert-success">
+<b>ANSWER: Initially, I looked at survival by age and gender, which I already saw had a substantial, almost categorical effect on survival rates.  Given what I knew of the historical event, I also suspected that the socio-economic class of the passenger would have a substantial effect on survival rates, but first I checked that the number of family members on board (spouses/siblings, or parents/children) did not substantially change survival rates for either women or men, as a group.</b><br><br>
 
+<b>After breaking each gender down by class, I saw that generally, female passengers in the 1st and 2nd class survived (with some minor exceptions that did not seem to warrant adding an additional, and possibly spurious feature that would be unlikely to generalize to similar datasets).  For female passengers in the 3rd class, it appeared difficult to predict whether passengers survived or not, so I looked at survival rates by age and gender conditioned on whether the passengers had family members on board.  I saw that younger and older women who were not in the (roughly) 20/30-50 age range were noticeably more likely to survive if they did not have family members on board.</b><br><br>
+
+<b>In the case of male passengers, it was clear that in the 3rd class, passengers overwhelmingly died.  In the 2nd class, male passengers above the age of 10 likewise overwhelmingly died, and this did not appear to be substantially mediated by whether family members were on board.  In the 1st class, there was a much more variable outcome, with older male individuals over 40 much less likely to survive.  There appeared to be no clear or reliable influence of the presence of family members on board, in either group, on survival rates, and although inclusion of those features may have improved prediction accuracy marginally, this again may be unlikely to generalize to similar datasets.</b><br><br>
+
+<b>Overall, incorporating these features as described above (and in the code) results in an accuracy of 81.14% in predicting survival rates on the Titanic.</b></div>
 </div>
 </div>
 </div>

@@ -12966,11 +12966,22 @@ Average final z position for last 100 episodes: 155.29687790394146
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Reflections">Reflections<a class="anchor-link" href="#Reflections">&#182;</a></h2><p><strong>Question 1</strong>: Describe the task that you specified in <code>task.py</code>.  How did you design the reward function?</p>
-<p><strong>ANSWER: I decided to teach the quadcopter how to hover at a set point.  I had it initialize and hover at position [0, 0, 25], but have found that the quadcopoter has a significant amount of trouble achieving this, tending in particular to crash mid-episode, and ultimately was only successful in keeping the helicopter from crashing by the end of an episode.  I am not sure of the reason for this, but it's possible that while the penalty for crashing must be high enough to disincentivize crashing, a high crashing penalty also incentivizes a general upward trajectory.  I attempted to counteract this by penalizing high velocities while in the target region, but this seemed to result in more crashes, possibly because even low penalties were disincentivizing not ending the episodes early.  I also tried adding greater rewards (ranging from tiny to very large) for staying within the target region, which did not seem to have a clear effect, but possibly seemed to result in more unstable rewards.  Several (though by far not all) of the other rewards functions I tried can be seen in the task file.</strong></p>
-<p><strong>I attempted to modify the reward function in several other ways: initially, by applying a non-linear function (<code>tanh</code>) to bound the reward, and by decreasing and therefore bounding the relative penalty for mispositioning (from 0.3 to 0.1, 0.01, etc.).  Decreasing and bounding the penalty, down to 0.001-0.005, seemed to have the best effect on performance, disincentiving crashing by making staying up in the air more rewarding.  Applying the non-linear function <code>tanh</code> did not have clear benefit at this point, and I discarded it.  As mentioned, to encourage hovering in place, I added high rewards for hitting the target precisely, moderately high rewards for staying in the general area of the target, and slight penalties for high velocities.  Ultimately, however, this function, which gives a small penalty for distance from the target, a moderately large penalty for crashing, and a moderate bonus for staying within 5% of the maximum radius around the target, seemed to result in the quadcopter most reliably staying in the air:</strong></p>
-<p><code>reward = 1 - 0.003*(distance).sum() - 20*(self.sim.pose[2]==0) + 5*region05</code></p>
-<p><strong>In the future, I will want to revise the reward function further, as I am sure that changing other critical aspects of it should make it more likely that the quadcopter will hover in place.  However, through numerous trials, I have not yet been able to achieve this.</strong></p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="alert alert-block alert-success">
+<b>ANSWER: I decided to teach the quadcopter how to hover at a set point.  I had it initialize and hover at position [0, 0, 25], but have found that the quadcopoter has a significant amount of trouble achieving this, tending in particular to crash mid-episode, and ultimately was only successful in keeping the helicopter from crashing by the end of an episode.  I am not sure of the reason for this, but it's possible that while the penalty for crashing must be high enough to disincentivize crashing, a high crashing penalty also incentivizes a general upward trajectory.  I attempted to counteract this by penalizing high velocities while in the target region, but this seemed to result in more crashes, possibly because even low penalties were disincentivizing not ending the episodes early.  I also tried adding greater rewards (ranging from tiny to very large) for staying within the target region, which did not seem to have a clear effect, but possibly seemed to result in more unstable rewards.  Several (though by far not all) of the other rewards functions I tried can be seen in the task file.</b><br><br>
+
+<b>I attempted to modify the reward function in several other ways: initially, by applying a non-linear function (<code>tanh</code>) to bound the reward, and by decreasing and therefore bounding the relative penalty for mispositioning (from 0.3 to 0.1, 0.01, etc.).  Decreasing and bounding the penalty, down to 0.001-0.005, seemed to have the best effect on performance, disincentiving crashing by making staying up in the air more rewarding.  Applying the non-linear function <code>tanh</code> did not have clear benefit at this point, and I discarded it.  As mentioned, to encourage hovering in place, I added high rewards for hitting the target precisely, moderately high rewards for staying in the general area of the target, and slight penalties for high velocities.  Ultimately, however, this function, which gives a small penalty for distance from the target, a moderately large penalty for crashing, and a moderate bonus for staying within 5% of the maximum radius around the target, seemed to result in the quadcopter most reliably staying in the air:</b><br><br>
+
+<code>reward = 1 - 0.003&#42;(distance).sum() - 20&#42;(self.sim.pose[2]==0) + 5&#42;region05</code><br><br>
+
+<b>In the future, I will want to revise the reward function further, as I am sure that changing other critical aspects of it should make it more likely that the quadcopter will hover in place.  However, through numerous trials, I have not yet been able to achieve this.</b></div>
 </div>
 </div>
 </div>
@@ -12984,10 +12995,20 @@ Average final z position for last 100 episodes: 155.29687790394146
 <li>What was your final choice of hyperparameters (such as $\alpha$, $\gamma$, $\epsilon$, etc.)?</li>
 <li>What neural network architecture did you use (if any)? Specify layers, sizes, activation functions, etc.</li>
 </ul>
-<p><strong>ANSWER: I intially tried the default learning algorithm, attempting to modify only the reward function, which improved reward slightly, but did not teach the quadcopter how to fly.  I then used the learning algorithm recommended by Udacity (Deep Deterministic Policy Gradients; DDPG), initially with the default parameters and architecture.  Once I saw that this learning algorithm resulted in significant improvement in task-learning (given the right reward function, the quadcopter would eventually learn to hover, even if not at exactly the right position), I attempted to modify the architecture to either improve learning speed, improve performance, or decrease runtime (which had increased significantly, particularly when I increased layer sizes).</strong></p>
-<p><strong>In the end, I did not modify the hyperparameters.  The parameters were set as follows: $\tau$ = 0.01; $\gamma$ = 0.99, and everything else was left as is.  The parameters seemed to be suited for the scope and aim of the task, where there was an exceedingly large space to explore.</strong></p>
-<p><strong>I modified the Neural Network architecture, as suggested, by increasing layer sizes, adding batch normalization to improve network performance and stability, and adding L2 regularizers to reduce overfitting.  I attempted to decrease the number of layers while increasing layer width, but this did not seem to help.  In the end, I increased layer size, which seemed to result in more stable or replicable performance of different agents.  The actor model had three dense hidden layers with 256/512/256 nodes, L2 regularization, batch normalization, and ReLu activation functions.  The critic model had two dense hiddern layers each for the state and action pathways, with 256/512 nodes each, L2 regularization, batch normalization, and a ReLu activation function.</strong></p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="alert alert-block alert-success">
+<b>ANSWER: I intially tried the default learning algorithm, attempting to modify only the reward function, which improved reward slightly, but did not teach the quadcopter how to fly.  I then used the learning algorithm recommended by Udacity (Deep Deterministic Policy Gradients; DDPG), initially with the default parameters and architecture.  Once I saw that this learning algorithm resulted in significant improvement in task-learning (given the right reward function, the quadcopter would eventually learn to hover, even if not at exactly the right position), I attempted to modify the architecture to either improve learning speed, improve performance, or decrease runtime (which had increased significantly, particularly when I increased layer sizes).</b><br><br>
+
+<b>In the end, I did not modify the hyperparameters.  The parameters were set as follows: $\tau$ = 0.01; $\gamma$ = 0.99, and everything else was left as is.  The parameters seemed to be suited for the scope and aim of the task, where there was an exceedingly large space to explore.</b><br><br>
+
+<b>I modified the Neural Network architecture, as suggested, by increasing layer sizes, adding batch normalization to improve network performance and stability, and adding L2 regularizers to reduce overfitting.  I attempted to decrease the number of layers while increasing layer width, but this did not seem to help.  In the end, I increased layer size, which seemed to result in more stable or replicable performance of different agents.  The actor model had three dense hidden layers with 256/512/256 nodes, L2 regularization, batch normalization, and ReLu activation functions.  The critic model had two dense hiddern layers each for the state and action pathways, with 256/512 nodes each, L2 regularization, batch normalization, and a ReLu activation function.</b></div>
 </div>
 </div>
 </div>
@@ -13001,8 +13022,16 @@ Average final z position for last 100 episodes: 155.29687790394146
 <li>Was there a gradual learning curve, or an aha moment?</li>
 <li>How good was the final performance of the agent? (e.g. mean rewards over the last 10 episodes)</li>
 </ul>
-<p><strong>ANSWER: This was a relatively difficult task to learn, and in fact it was never learned in full. The learning curve was typically quite erratic, either stabilizing eventually at a relatively high level of reward, or with less successful reward functions, at a low level.  It was not a gradual learning curve.  Ultimately I was not fully successful in getting the quadcopter to hover, rather than rising continuously, which would be an area of future improvement.  The gains in reward by the end of learning were also relatively modest, and I would want to work more on this task to ensure a more clear gain, particularly in instances where the quadcopter did vs. didn't crash.</strong></p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="alert alert-block alert-success">
+<b>ANSWER: This was a relatively difficult task to learn, and in fact it was never learned in full. The learning curve was typically quite erratic, either stabilizing eventually at a relatively high level of reward, or with less successful reward functions, at a low level.  It was not a gradual learning curve.  Ultimately I was not fully successful in getting the quadcopter to hover, rather than rising continuously, which would be an area of future improvement.  The gains in reward by the end of learning were also relatively modest, and I would want to work more on this task to ensure a more clear gain, particularly in instances where the quadcopter did vs. didn't crash.</b></div>
 </div>
 </div>
 </div>
@@ -13015,9 +13044,18 @@ Average final z position for last 100 episodes: 155.29687790394146
 <li>What was the hardest part of the project? (e.g. getting started, plotting, specifying the task, etc.)</li>
 <li>Did you find anything interesting in how the quadcopter or your agent behaved?</li>
 </ul>
-<p><strong>ANSWER: The hardest part of this project was translating from the very complex, abstract, and rapidly presented information in the course to the task at hand.  Once I was able to map between the concepts I learned and the code I wanted to write, and started tweaking the reward function and agent architecture and seeing results, it became easier.  It did take a lot of tweaking of the reward function and neural network architecture to reach the point where the quadcopter would, at the least, reliably not crash, and would not unlearn the behavior in later episodes.  I still do not feel that I fully grasp all of the issues at hand, and would need more time to get a good handle of how RL works.</strong></p>
-<p><strong>I found it interesting that occasionally, I was able to get the quadcopter to reliably stay in the air for an extended number of episodes, but then would see it appear to un-learn this behavior, and reliably crash at the end of every episode.  I also found it interesting, although unsurprising, that it appeared to be more difficult to get the quadcopter to hover relatively close to the floor.</strong></p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="alert alert-block alert-success">
+<b>ANSWER: The hardest part of this project was translating from the very complex, abstract, and rapidly presented information in the course to the task at hand.  Once I was able to map between the concepts I learned and the code I wanted to write, and started tweaking the reward function and agent architecture and seeing results, it became easier.  It did take a lot of tweaking of the reward function and neural network architecture to reach the point where the quadcopter would, at the least, reliably not crash, and would not unlearn the behavior in later episodes.  I still do not feel that I fully grasp all of the issues at hand, and would need more time to get a good handle of how RL works.</b><br><br>
+
+<b>I found it interesting that occasionally, I was able to get the quadcopter to reliably stay in the air for an extended number of episodes, but then would see it appear to un-learn this behavior, and reliably crash at the end of every episode.  I also found it interesting, although unsurprising, that it appeared to be more difficult to get the quadcopter to hover relatively close to the floor.</b></div>
 </div>
 </div>
 </div>
