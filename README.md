@@ -8,13 +8,13 @@
 
 Section | Project | Task | Status |
 --- | --- | --- | ---
-Introductory Practice Project | [Titanic Survival Exploration](./titanic-survival-exploration) |  | Done 
-Model Evaluation and Validation | [Predicting Boston Housing Prices](./boston-housing) |  | Done  
-Supervised Learning | [Finding Donors for CharityML](./finding-donors) |  | Done
+Introductory Practice Project | [Titanic Survival Exploration](./titanic-survival-exploration) | Built decision tree classifier by hand to predict Titanic passenger survival. | Done 
+Model Evaluation and Validation | [Predicting Boston Housing Prices](./boston-housing) | Used decision tree regressor to predict Boston-area housing prices. | Done  
+Supervised Learning | [Finding Donors for CharityML](./finding-donors) | Used supervised learning models (Random Forest, AdaBoost, Logistic Regression) to classify potential charity donors into two income groups. | Done
 Deep Learning | [Dog Breed Recognition](./dog-project) |  | Done
-Unsupervised Learning | [Creating Customer Segments](./customer-segments) |  | Done
-Reinforcement Learning | [Train a Quadcopter How to Fly](./quadcopter-project) |  | Done
-Machine Learning Capstone | [Capstone Projet](./capstone-project) | | Done
+Unsupervised Learning | [Creating Customer Segments](./customer-segments) | Trained a CNN to identify dog breeds using transfer learning. | Done
+Reinforcement Learning | [Train a Quadcopter How to Fly](./quadcopter-project) | Used reinforcement learning to (somewhat successfully) teach a quadcopter how to hover in place. | Done
+Machine Learning Capstone | [Capstone Projet](./capstone-project) | Used several supervised learning models to predict whether a peer-to-peer loan will be repaid, or default, using a historical Prosper loan dataset. | Done
 
 ## License
 
