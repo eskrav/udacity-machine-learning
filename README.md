@@ -7,7 +7,7 @@
 ## Contents
 
 Section | Project | Task | Status |
---- | --- | ---
+--- | --- | --- | ---
 Introductory Practice Project | [Titanic Survival Exploration](./titanic-survival-exploration) |  | Done 
 Model Evaluation and Validation | [Predicting Boston Housing Prices](./boston-housing) |  | Done  
 Supervised Learning | [Finding Donors for CharityML](./finding-donors) |  | Done
