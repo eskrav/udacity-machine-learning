@@ -2,19 +2,19 @@
 
 ## About
 - Project work for [Udacity Machine Learning Engineer Nanodegree](https://www.udacity.com/course/machine-learning-engineer-nanodegree--nd009t)
-- Author: [Ekaterina Kravtchenko](https://github.com/eskrav)
+- Author: [Ekaterina Kravtchenko](https://eskrav.github.io)
 
 ## Contents
 
-Section | Project | Status |
+Section | Project | Task | Status |
 --- | --- | ---
-Introductory Practice Project | [Titanic Survival Exploration](./titanic-survival-exploration) | Done 
-Model Evaluation and Validation | [Predicting Boston Housing Prices](./boston-housing) | Done 
-Supervised Learning | Finding Donors for CharityML | 
-Deep Learning | Dog Breed Recognition | 
-Unsupervised Learning | Creating Customer Segments | 
-Reinforcement Learning | Train a Quadcopter How to Fly | 
-Machine Learning Capstone | Capstone Project |
+Introductory Practice Project | [Titanic Survival Exploration](./titanic-survival-exploration) |  | Done 
+Model Evaluation and Validation | [Predicting Boston Housing Prices](./boston-housing) |  | Done  
+Supervised Learning | [Finding Donors for CharityML](./finding-donors) |  | Done
+Deep Learning | [Dog Breed Recognition](./dog-project) |  | Done
+Unsupervised Learning | [Creating Customer Segments](./customer-segments) |  | Done
+Reinforcement Learning | [Train a Quadcopter How to Fly](./quadcopter-project) |  | Done
+Machine Learning Capstone | [Capstone Projet](./capstone-project) | | Done
 
 ## License
 
