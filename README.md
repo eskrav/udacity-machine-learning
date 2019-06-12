@@ -8,7 +8,7 @@
 
 Section | Project | Task | Status |
 --- | --- | --- | ---
-Introductory Practice Project | [Titanic Survival Exploration](./titanic-survival-exploration) | Built simple decision tree classifier by hand to predict Titanic passenger survival. | Done 
+Introductory Practice Project | [Titanic Survival Exploration](./titanic-survival-exploration) | Built a simple decision tree classifier by hand to predict Titanic passenger survival. | Done 
 Model Evaluation and Validation | [Predicting Boston Housing Prices](./boston-housing) | Used a decision tree regressor to predict historical Boston-area housing prices. | Done  
 Supervised Learning | [Finding Donors for CharityML](./finding-donors) | Used supervised learning models (Random Forest, AdaBoost, Logistic Regression) to classify potential charity donors into groups likely and unlikely to donate. | Done
 Deep Learning | [Dog Breed Recognition](./dog-project) | Trained a CNN (using Keras) to identify dog breeds from images using transfer learning. | Done
