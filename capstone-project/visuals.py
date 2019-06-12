@@ -48,7 +48,7 @@ def distribution(data, continuous, transformed = False):
     fig.show()
 
 
-def evaluate(results, accuracy, precision, f1):
+def evaluate(results, accuracy, precision, f1, title):
     """
     Visualization code to display results of various learners.
     
@@ -111,14 +111,14 @@ def evaluate(results, accuracy, precision, f1):
     # Create legend
     for i, learner in enumerate(results.keys()):
         pl.bar(0, 0, color=colors[i], label=learner)
-    pl.legend()
+    pl.legend(loc='lower right')
 
     # Aesthetics
-    pl.suptitle("Performance Metrics for Four Supervised Learning Models", fontsize = 16, y = 1.10)
+    pl.suptitle(title, fontsize = 16, y = 1.10)
     pl.tight_layout()
     pl.show()
 
-def evaluate5(results, accuracy, precision, f1):
+def evaluate5(results, accuracy, precision, f1, title):
     """
     Visualization code to display results of various learners.
     
@@ -181,10 +181,10 @@ def evaluate5(results, accuracy, precision, f1):
     # Create legend
     for i, learner in enumerate(results.keys()):
         pl.bar(0, 0, color=colors[i], label=learner)
-    pl.legend()
+    pl.legend(loc='lower right')
 
     # Aesthetics
-    pl.suptitle("Performance Metrics for Five Supervised Learning Models", fontsize = 16, y = 1.10)
+    pl.suptitle(title, fontsize = 16, y = 1.10)
     pl.tight_layout()
     pl.show()
     
