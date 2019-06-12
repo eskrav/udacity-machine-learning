@@ -15,7 +15,7 @@ This project requires **Python** and the following Python libraries installed:
 - [NumPy](http://www.numpy.org/)
 - [Pandas](http://pandas.pydata.org/)
 - [matplotlib](http://matplotlib.org/)
-- [keras](http://scikit-learn.org/stable/)
+- [scikit-learn](http://scikit-learn.org/stable/)
 - [keras](https://keras.io/)
 
 You will also need to have software installed to run and execute a [Jupyter Notebook](http://ipython.org/notebook.html)
