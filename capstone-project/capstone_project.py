@@ -1280,6 +1280,8 @@ print("Final F-score on the testing data: {:.4f}".format(f1_score(y_test, best_x
 print("Final precision on the testing data: {:.4f}".format(precision_score(y_test, best_xgboost_predictions)))
 print("Final recall on the testing data: {:.4f}".format(recall_score(y_test, best_xgboost_predictions)))
 
+dill.dump_session('notebook_env2.db')
+
 
 # ### Final Model Evaluation
 # 
@@ -1332,8 +1334,8 @@ importances_xgboost = best_xgboost_clf.feature_importances_
 from sklearn.base import clone
 
 # Reduce the feature space
-X_train_reduced = X_train_non_na[X_train_non_na.columns.values[(np.argsort(importances)[::-1])[:5]]]
-X_test_reduced = X_test_non_na[X_test_non_na.columns.values[(np.argsort(importances)[::-1])[:5]]]
+X_train_reduced = X_train_non_na[X_train_non_na.columns.values[(np.argsort(importances_adaboost)[::-1])[:5]]]
+X_test_reduced = X_test_non_na[X_test_non_na.columns.values[(np.argsort(importances_adaboost)[::-1])[:5]]]
 
 # Train on the "best" model found from grid search earlier
 adaboost_clf = (clone(best_adaboost_clf)).fit(X_train_reduced, y_train)
@@ -1355,6 +1357,10 @@ print("Recall on testing data: {:.4f}".format(recall_score(y_test, reduced_adabo
 
 
 # In[ ]:
+
+X_train_reduced = X_train_non_na[X_train_non_na.columns.values[(np.argsort(importances_xgboost)[::-1])[:5]]]
+X_test_reduced = X_test_non_na[X_test_non_na.columns.values[(np.argsort(importances_xgboost)[::-1])[:5]]]
+
 
 
 # Train on the "best" model found from grid search earlier
@@ -1383,5 +1389,5 @@ print("Recall on testing data: {:.4f}".format(recall_score(y_test, reduced_xgboo
 # In[ ]:
 
 
-dill.dump_session('notebook_env2.db')
+dill.dump_session('notebook_env3.db')
 
