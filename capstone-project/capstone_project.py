@@ -9,9 +9,6 @@ import numpy as np
 import datetime as dt
 from scipy import stats as st
 
-import matplotlib.pyplot as plt
-import seaborn as sns
-import visuals as vs
 
 from sklearn.decomposition import PCA
 from sklearn.linear_model import LogisticRegression
@@ -698,15 +695,6 @@ continuous_features = ["Term", "BorrowerRate", "LenderYield", "EstimatedEffectiv
                        "MonthlyLoanPayment", "Recommendations", "InvestmentFromFriendsCount", 
                        "InvestmentFromFriendsAmount", "Investors", "CreditScore", "CreditHistoryAge"]
 
-for feature in continuous_features:
-    size, scale = 1000, 10
-    data[feature].plot.hist(grid=True, bins=20, rwidth=0.9, color='#607c8e')
-    plt.title(feature)
-    plt.xlabel('Counts')
-    plt.ylabel(feature)
-    plt.grid(axis='y', alpha=0.75)
-    plt.show()
-
 
 # Below, I perform a log-transformation on those features I noted to be skewed, adding a small number to `x`, since the logarithm of 0 is undefined.
 
@@ -726,17 +714,6 @@ skewed = ['EstimatedEffectiveYield', 'EstimatedLoss', 'EmploymentStatusDuration'
           'InvestmentFromFriendsCount', 'InvestmentFromFriendsAmount', 'Investors', 'CreditHistoryAge']
 features_log_transformed = pd.DataFrame(data = features_raw)
 features_log_transformed[skewed] = features_raw[skewed].apply(lambda x: np.log(x + 0.1))
-
-# Visualize the new log distributions
-for feature in skewed:
-    size, scale = 1000, 10
-    features_log_transformed[feature].plot.hist(grid=True, bins=20, rwidth=0.9,
-                   color='#607c8e')
-    plt.title(feature)
-    plt.xlabel('Counts')
-    plt.ylabel(feature)
-    plt.grid(axis='y', alpha=0.75)
-    plt.show()
 
 
 # Many of the features are still not normally distributed, but their values are by and large less extreme, and less likely to affect learning algorithms.  In the future, I will explore other transformations that may be applied to non-normally-distributed features.
@@ -1028,8 +1005,6 @@ for clf in [clf_A, clf_B, clf_C, clf_D]:
 # In[89]:
 
 
-vs.evaluate(results_non_na, accuracy, precision, fscore, "Performance Metrics: Missing Data Removed")
-
 
 # #### PCA: 10 most important features
 
@@ -1055,8 +1030,6 @@ for clf in [clf_A, clf_B, clf_C, clf_D]:
 
 # In[91]:
 
-
-vs.evaluate(results_pca10, accuracy, precision, fscore, "Performance Metrics: 10 most important features (PCA)")
 
 
 # #### PCA: 3 most important features
@@ -1084,8 +1057,6 @@ for clf in [clf_A, clf_B, clf_C, clf_D]:
 # In[93]:
 
 
-vs.evaluate(results_pca3, accuracy, precision, fscore, "Performance Metrics: 3 most important features (PCA)")
-
 
 # #### PCA: top 30% of features
 
@@ -1112,8 +1083,6 @@ for clf in [clf_A, clf_B, clf_C, clf_D]:
 # In[95]:
 
 
-vs.evaluate(results_reduce30, accuracy, precision, fscore, "Performance Metrics: Top 30% features (PCA)")
-
 
 # #### PCA: top 10% of features
 
@@ -1139,8 +1108,6 @@ for clf in [clf_A, clf_B, clf_C, clf_D]:
 
 # In[97]:
 
-
-vs.evaluate(results_reduce10, accuracy, precision, fscore, "Performance Metrics: Top 10% features (PCA)")
 
 
 # #### Full dataset with missing data (XGBoost only, which unlike AdaBoost handles missing values)
@@ -1171,8 +1138,6 @@ results_spliced["XGBClassifier_full"] = results_full["XGBClassifier"]
 
 # In[100]:
 
-
-vs.evaluate5(results_spliced, accuracy, precision, fscore, "Performance Metrics: Missing data removed vs. XGBoost using full data set")
 
 
 # ----
@@ -1347,8 +1312,6 @@ model = best_adaboost_clf.fit(X_train_non_na, y_train)
 
 importances_adaboost = best_adaboost_clf.feature_importances_
 
-vs.feature_plot(importances_adaboost, X_train_non_na, y_train)
-
 
 # In[ ]:
 
@@ -1356,8 +1319,6 @@ vs.feature_plot(importances_adaboost, X_train_non_na, y_train)
 model = best_xgboost_clf.fit(X_train_non_na, y_train)
 
 importances_xgboost = best_xgboost_clf.feature_importances_
-
-vs.feature_plot(importances_xgboost, X_train_non_na, y_train)
 
 
 # ### Feature Selection
@@ -1417,11 +1378,6 @@ print("Recall on testing data: {:.4f}".format(recall_score(y_test, reduced_xgboo
 
 # In[ ]:
 
-
-from xgboost import plot_tree
-
-plot_tree(best_xgboost_clf, rankdir='LR')
-plt.show()
 
 
 # In[ ]:
