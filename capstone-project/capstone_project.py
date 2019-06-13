@@ -11,7 +11,6 @@ from scipy import stats as st
 
 import matplotlib.pyplot as plt
 import seaborn as sns
-get_ipython().run_line_magic('matplotlib', 'inline')
 import visuals as vs
 
 from sklearn.decomposition import PCA
