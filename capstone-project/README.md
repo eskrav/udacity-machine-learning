@@ -5,6 +5,8 @@
 
 In this project, I create a classification model which predicts, from borrower demographic information and company-provided loan conditions and ratings, whether a peer-to-peer loan will be repaid, or not.  To this end, I compared labeled historical Prosper loan data to the repayment status predicted by several supervised learning algorithms, ultimately selecting XGBoost as the algorithm of choice, due to its robust performance in correctly classifying repaid loans as such.
 
+The code can be found in the Jupyter notebook [here](./capstone_project.ipynb).  The written report can be found in the pdf [here](./capstone_report.pdf).
+
 ### Install
 
 This project requires **Python 3** and the following Python libraries installed:
