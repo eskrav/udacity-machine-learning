@@ -14,7 +14,7 @@ Supervised Learning | [Finding Donors for CharityML](./finding-donors) | Used su
 Deep Learning | [Dog Breed Recognition](./dog-project) | Trained a CNN (using Keras) to identify dog breeds from images using transfer learning. | Done
 Unsupervised Learning | [Creating Customer Segments](./customer-segments) | Used a Gaussian Mixture Model to identify food retailer groups, using historical purchasing patterns. | Done
 Reinforcement Learning | [Train a Quadcopter How to Fly](./quadcopter-project) | Used reinforcement learning to teach a quadcopter how to hover in place by modifying the reward function and learning algorithm. | Done
-Machine Learning Capstone | [Capstone Projet](./capstone-project) | Used several supervised learning models (Random Forest, AdaBoost, Logistic Regression, XGBoost) to predict whether a peer-to-peer loan will be repaid, or default, using a historical Prosper loan dataset. | Done
+Machine Learning Capstone | [Capstone Project](./capstone-project) | Used several supervised learning models (Random Forest, AdaBoost, Logistic Regression, XGBoost) to predict whether a peer-to-peer loan will be repaid, or default, using a historical Prosper loan dataset. | Done
 
 ## License
 
