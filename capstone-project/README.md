@@ -1,6 +1,10 @@
 # Machine Learning Engineer Nanodegree
 ## Capstone Project
 
+### Summary
+
+In this project, I create a classification model which predicts, from borrower demographic information and company-provided loan conditions and ratings, whether a peer-to-peer loan will be repaid, or not.  To this end, I compared labeled historical Prosper loan data to the repayment status predicted by several supervised learning algorithms, ultimately selecting XGBoost as the algorithm of choice, due to its robust performance in correctly classifying repaid loans as such.
+
 ### Install
 
 This project requires **Python 3** and the following Python libraries installed:
@@ -34,7 +38,3 @@ This will open the iPython Notebook software and project file in your browser.
 `capstone_report.pdf`: Written report on project
 
 [data exploration](https://github.com/eskrav/udacity-data-analyst/blob/master/explore-and-summarize/explore-and-summarize.Rmd)
-
-[proposal](https://github.com/eskrav/udacity-machine-learning/tree/master/capstone-proposal/proposal.pdf)
-
-[proposal review](https://github.com/eskrav/udacity-machine-learning/tree/master/capstone-proposal/review.pdf)
