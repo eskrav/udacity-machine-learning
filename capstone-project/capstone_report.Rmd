@@ -6,12 +6,12 @@ date: "November 26th, 2018"
 output:
   pdf_document:
     toc: yes
-  html_document:
-    css: styles.css
-    pandoc_args: --mathjax
-    self_contained: no
-    toc: yes
-    toc_float: yes
+  # html_document:
+  #   css: styles.css
+  #   pandoc_args: --mathjax
+  #   self_contained: no
+  #   toc: yes
+  #   toc_float: yes
 link-citations: true
 bibliography: bib.bib
 csl: apa.csl
@@ -119,7 +119,7 @@ Here, one can clearly see that the more the potential borrower earns, the more l
 More visualizations of how various features in the dataset correlate with likelihood of loan completion, and higher returns for the lender, can be found on this page: https://eskrav.github.io/udacity-data-analyst/explore-and-summarize/explore-and-summarize.html#lender_profit.  In summary, Prosper's own ratings and loan terms are highly predictive of repayment status, as are reports of previous on-time Prosper payments.  Similarly, demographic and background financial information such as occupation, income bracket, credit score, employment status, recent credit inquiries, delinquent loans, and debt-to-income ratio, appear to be predictive.
 
 ### Algorithms and Techniques
-<!--In this section, you will need to discuss the algorithms and techniques you intend to use for solving the problem. You should justify the use of each one based on the characteristics of the problem and the problem domain. Questions to ask yourself when writing this section:
+<!--In this section, you will need to discuss the algorithms and techniques you intend for solving the problem. You should justify the use of each one based on the characteristics of the problem and the problem domain. Questions to ask yourself when writing this section:
 - _Are the algorithms you will use, including any default variables/parameters in the project clearly defined?_
 - _Are the techniques to be used thoroughly discussed and justified?_
 - _Is it made clear how the input data or datasets will be handled by the algorithms and techniques chosen?_-->
@@ -161,9 +161,9 @@ XGBoost, which is explained further in the attached Jupyter notebook (omitted he
 - _Has some result or value been provided that acts as a benchmark for measuring performance?_
 - _Is it clear how this result or value was obtained (whether by data or by hypothesis)?_-->
 
-A benchmark model I would lke to use is the following analysis, which ended up using a Random Forest classifier: https://www.kaggle.com/jschnessl/prosper-analysis/notebook.  I was not able to immediately locate any other analysis using the same dataset, or reasonably current Prosper loan data.  However, this analysis attempts to predict defaults, rather then completions, making it difficult to directly compare metrics.  An alternative benchmark I use in the attached notebook is a naive classifier which labels all loans as completed (100% recall, low precision); the minimum standard then would be to improve precision.
+A benchmark model I would like to use is the following analysis, which ended up using a Random Forest classifier: @schnessl_2017.  I was not able to immediately locate any other analysis using the same dataset, or reasonably current Prosper loan data.  However, this analysis attempts to predict defaults, rather then completions, making it difficult to directly compare metrics.  An alternative benchmark I use in the attached notebook is a naive classifier which labels all loans as completed (100% recall, low precision); the minimum standard then would be to improve precision.
 
-An alternative benchmark is the following project, which uses LendingClub data: @TsaiRamiahSingh.  This project achieves highest performance using a Logistic Regression model, with precision at 0.96, but somewhat questionable recall at only 0.08, meaning that it does not label most completed loans as completed.  Another analysis, which similarly uses LendingClub data, and achieves highest performance using a Random Forest model, arrives at a weighted precision and recall of 0.89, which appears more promising: @LiHan.
+An alternative benchmark is the following project, which uses LendingClub data: @TsaiRamiahSingh.  This project achieves highest performance using a Logistic Regression model, with precision (given the default $\beta$=1) at 0.89, but fairly low recall at only 0.64, meaning that it does not label a large portion of completed loans as completed (meaning that customers are missing out on potential profits, and aren't investing in as many loans)^[This model produces much higher precision at higher $\beta$ values, but at its optimal precision of 0.96 labels only 7.9% of completed loans as such.].  Another analysis, which similarly uses LendingClub data, and achieves highest performance using a Random Forest model, arrives at a weighted precision and recall of 0.89, which appears more promising: @LiHan.
 
 Although these datasets are not directly comparable, this provides some estimate of how high a performance may in principle be achieved.
 
@@ -190,7 +190,7 @@ Some features irrelevant to the task at hand, or redundant with other features, 
 
 #### Data Imputation
 
-Prosper's estimated effective yield was a measure not available prior to mid-2009.  However, it measures the borrower rate minus expected fees, which can be imputed.  Given the data is generally not normally distributed (which will be discussed further below), unless stated otherwise, missing data is imputed with the median (rather than the mean) of the relevant metric.  In the case of effective yield, this is the median difference between borrower rate and estimated effective yield, as implemented in https://www.kaggle.com/jschnessl/prosper-analysis/notebook.  Other measures of estimated gain or loss, which were only implemented post-2009, cannot be easily imputed, although a linear regression might be used in a future analysis to infer likely values.  For now, I leave these measures as is, and for the most part do not use them in the later analyses, as the values are missing for about half the dataset.
+Prosper's estimated effective yield was a measure not available prior to mid-2009.  However, it measures the borrower rate minus expected fees, which can be imputed.  Given the data is generally not normally distributed (which will be discussed further below), unless stated otherwise, missing data is imputed with the median (rather than the mean) of the relevant metric.  In the case of effective yield, this is the median difference between borrower rate and estimated effective yield, as implemented in @schnessl_2017.  Other measures of estimated gain or loss, which were only implemented post-2009, cannot be easily imputed, although a linear regression might be used in a future analysis to infer likely values.  For now, I leave these measures as is, and for the most part do not use them in the later analyses, as the values are missing for about half the dataset.
 
 For most continuous features, missing values are imputed using the median feature values.  The mean is avoided due to the skewed distributions of values for many of these features.  The missing values for features related to prior Prosper Loans are coded as 0, given that information is only present for those borrowers who had prior Prosper loans, as discussed in the previous data exploration.
 
@@ -271,7 +271,7 @@ I would expect that this model is relatively robust to changes in the training d
 The model I chose performs better than the naive predictor.  Although the metrics reported in the previous Prosper analysis are not directly comparable to my results, I was able to compute the metrics by hand in the attached Jupyter notebook, and demonstrate below that they are, in general, superior.  The performance of this model does not reach the performance of the LendingClub models^[I choose the default $\beta$=1 for the highest-performing model class in @TsaiRamiahSingh.], but in this case, the data sets are not directly comparable (the Lending Club datasets used report a far lower percentage of non-repaid loans), and it is difficult to say which model performs better.  In the future, I may test my model on LendingClub data.
 
 
-| Metric         | Naive | Prosper (Kaggle) | @TsaiRamiahSingh | @LiHan | Unoptimized | Optimized |
+| Metric         | Naive | Prosper (@schnessl_2017) | @TsaiRamiahSingh | @LiHan | Unoptimized | Optimized |
 |----------------|-------|------------------|--------------------------------------|------------------------|-------------|-----------|
 | Accuracy | 0.69  | ?                | 0.64                                 | 0.89                   | 0.73        | 0.73      |
 | F-score        | 0.82  | 0.71             | 0.74                                 | 0.93                   | 0.82        | 0.80      |
@@ -287,7 +287,7 @@ Ideally, I would like to work on this problem further, to further optimize and i
 
 ### Further Analysis
 
-The previous Kaggle Prosper analysis reports that its chosen algorithm would perform fairly poorly in practice, resulting in a return of -23%.  To compare my algorithm on the primary metric that matters -- profit -- I conducted a similar analysis in the attached Jupyter notebook, similarly (for simplicity's sake) leaving out extra costs due to fees.  Extrapolating from the testing set, making the choice of which loans to invest in on the basis of my algorithm would result in a return of -7.3% -- rather poor, and not even breaking even, but a significantly smaller financial loss.  I would argue that the direction of this algorithm therefore seems promising.
+The previous Kaggle Prosper analysis [@schnessl_2017] reports that its chosen algorithm would perform fairly poorly in practice, resulting in a return of -23%.  To compare my algorithm on the primary metric that matters -- profit -- I conducted a similar analysis in the attached Jupyter notebook, similarly (for simplicity's sake) leaving out extra costs due to fees.  Extrapolating from the testing set, making the choice of which loans to invest in on the basis of my algorithm would result in a return of -7.3% -- rather poor, and not even breaking even, but a significantly smaller financial loss, and significantly smaller than what Prosper customers in fact lost over this period (-19.7%).  I would argue that the direction of this algorithm therefore seems promising.
 
 ### Free-Form Visualization
 <!--In this section, you will need to provide some form of visualization that emphasizes an important quality about the project. It is much more free-form, but should reasonably support a significant result or characteristic about the problem that you want to discuss. Questions to ask yourself when writing this section:
